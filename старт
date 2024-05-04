@@ -1,6 +1,34 @@
 import telebot
+from telebot import types 
+
 bot = telebot.TeleBot('6969036206:AAFrWpg8FYYCxUr8rTtOq_YmzajlM4n6WJU')
 @bot.message_handler(commands=['start'])
-def start(message):
-    bot.send_message(message.chat.id, 'Привет, вот твоя подборка', parse_mode='html')
+def start(message): #метод старрт с параметром сообщения
+    mess = f'Привет, {message.from_user.first_name}, вот твоя подборка'
+    bot.send_message(message.chat.id, mess, parse_mode='html')
+
+#@bot.message_handler() #отправка сообщения
+#def get_user_text(message):
+ #   mess = f'Привет, {message.from_user.first_name}, вот твоя подборка'
+  #  if message.text == "Старт":
+  #      bot.send_message(message.chat.id, mess, parse_mode='html')
+  #  elif message.text == "старт":
+  #      bot.send_message(message.chat.id, mess, parse_mode='html')
+  #  elif message.text == "Start":
+  #      bot.send_message(message.chat.id, mess, parse_mode='html')
+  #  elif message.text == "start":
+  #      bot.send_message(message.chat.id, mess, parse_mode='html')
+  #  else: 
+  #      bot.send_message(message.chat.id, 'Введи "Старт", чтобы запустить бот заново', parse_mode='html')
+
+@bot.message_handler(commands=['battons'])
+def battons(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1) #row_width - сколько кнопок в ряду почему-то не работает
+    start = types.KeyboardButton('Старт')
+    buttom = types.KeyboardButton('текст')
+    markup.add(start, buttom)
+    bot.send_message(message.chat.id, reply_markup=markup)
+
+
+
 bot.polling(non_stop=True)
