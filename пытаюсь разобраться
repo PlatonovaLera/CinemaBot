@@ -1,1 +1,6 @@
-ниче не понятно 
+import telebot
+bot = telebot.TeleBot('6969036206:AAFrWpg8FYYCxUr8rTtOq_YmzajlM4n6WJU')
+@bot.message_handler(commands=['start'])
+def start(message):
+    bot.send_message(message.chat.id, 'Привет, вот твоя подборка', parse_mode='html')
+bot.polling(non_stop=True)
