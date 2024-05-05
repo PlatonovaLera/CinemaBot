@@ -16,19 +16,37 @@ def start(message):
 
 def on_click(message):
     if message.text == 'Сгенерировать подборку фильмов':
-        bot.reply_to(message, 'Какого жанра фильм ты хочешь посмотреть?')
-        markup = types.InlineKeyboardMarkup()
-        btn1 = types.InlineKeyboardButton('Комедия')
-        btn2 = types.InlineKeyboardButton('Драма')
-        btn3 = types.InlineKeyboardButton('Мелодрама')
-        btn4 = types.InlineKeyboardButton('Боевик')
-        markup.row(btn1,btn2,btn3,btn4)
-        btn5 = types.InlineKeyboardButton('Фантастика')
-        btn6 = types.InlineKeyboardButton('Фэнтези')
-        btn7 = types.InlineKeyboardButton('Детектив')
-        btn8 = types.InlineKeyboardButton('Приключения')
-        markup.row(btn5,btn6,btn7,btn8)
-        bot.send_message(message.chat.id, 'Сгенерировать подборку фильмов', reply_markup=markup)
+        markup_inline = types.InlineKeyboardMarkup()
+        btn1 = types.InlineKeyboardButton('Комедия', callback_data='1')
+        btn2 = types.InlineKeyboardButton('Драма', callback_data='2')
+        btn3 = types.InlineKeyboardButton('Мелодрама', callback_data='3')
+        btn4 = types.InlineKeyboardButton('Боевик', callback_data='4')
+        btn5 = types.InlineKeyboardButton('Фантастика', callback_data='5')
+        btn6 = types.InlineKeyboardButton('Фэнтези', callback_data='6')
+        btn7 = types.InlineKeyboardButton('Детектив', callback_data='7')
+        btn8 = types.InlineKeyboardButton('Приключения', callback_data='8')
+        markup_inline.add(btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8)
+        bot.reply_to(message, 'Какого жанра фильм ты хочешь посмотреть?', reply_markup=markup_inline)
+        bot.register_next_step_handler(message, answer)
+
+@bot.callback_query_handler(func=lambda call: True)
+def answer(call):
+    if call.data == '1':
+        pass
+    elif call.data == '2':
+        pass
+    elif call.data == '3':
+        pass
+    elif call.data == '4':
+        pass
+    elif call.data == '5':
+        pass
+    elif call.data == '6':
+        pass
+    elif call.data == '7':
+        pass
+    elif call.data == '8':
+        pass
 
 
 @bot.message_handler(commands=['start'])
