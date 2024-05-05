@@ -1,0 +1,45 @@
+import telebot
+from telebot import types
+
+bot = telebot.TeleBot('6969036206:AAFrWpg8FYYCxUr8rTtOq_YmzajlM4n6WJU')
+
+@bot.message_handler(commands=['start'])
+def start(message):
+    markup = types.ReplyKeyboardMarkup()
+    btn1 = types.KeyboardButton('Сгенерировать подборку фильмов')
+    markup.row(btn1)
+    btn2 = types.KeyboardButton('Показать прошлую подборку')
+    btn3 = types.KeyboardButton('Показать новую подборку с теми же параметрами')
+    markup.row(btn2,btn3)
+    bot.send_message(message.chat.id, f'Привет, {message.from_user.first_name}!', reply_markup=markup)
+    bot.register_next_step_handler(message, on_click)
+
+def on_click(message):
+    if message.text == 'Сгенерировать подборку фильмов':
+        bot.reply_to(message, 'Какого жанра фильм ты хочешь посмотреть?')
+        markup = types.InlineKeyboardMarkup()
+        btn1 = types.InlineKeyboardButton('Комедия')
+        btn2 = types.InlineKeyboardButton('Драма')
+        btn3 = types.InlineKeyboardButton('Мелодрама')
+        btn4 = types.InlineKeyboardButton('Боевик')
+        markup.row(btn1,btn2,btn3,btn4)
+        btn5 = types.InlineKeyboardButton('Фантастика')
+        btn6 = types.InlineKeyboardButton('Фэнтези')
+        btn7 = types.InlineKeyboardButton('Детектив')
+        btn8 = types.InlineKeyboardButton('Приключения')
+        markup.row(btn5,btn6,btn7,btn8)
+        bot.send_message(message.chat.id, 'Сгенерировать подборку фильмов', reply_markup=markup)
+
+
+@bot.message_handler(commands=['start'])
+def main(message):
+    bot.send_message(message.chat.id, f'Привет, {message.from_user.first_name}!')
+
+@bot.message_handler()
+def info(message):
+    if message.text.lower() == 'привет':
+        bot.send_message(message.chat.id, f'Привет, {message.from_user.first_name}!' )
+
+
+
+bot.polling(non_stop=True)
