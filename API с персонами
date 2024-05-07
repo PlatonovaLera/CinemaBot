@@ -1,0 +1,5 @@
+@bot.message_handler(content_types=['text'])
+def get_director(message):
+    director = message.text.strip().lower
+    res = requests.get(f'https://api.kinopoisk.dev/v1.4/person/search?page=1&limit=10&query={director}&apikey={API}')
+    bot.reply_to(message, f'Режиссер {res.json()}')
