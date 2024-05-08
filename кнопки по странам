@@ -1,0 +1,19 @@
+def on_click1(message):
+    if message.text == 'Сгенерировать подборку фильмов':
+        markup_inline = types.InlineKeyboardMarkup()
+        btn1 = types.InlineKeyboardButton('Соединенные Штаты', callback_data='1')
+        btn2 = types.InlineKeyboardButton('Россия', callback_data='2')
+        btn3 = types.InlineKeyboardButton('Индия', callback_data='3')
+        btn4 = types.InlineKeyboardButton('Франция', callback_data='4')
+        btn5 = types.InlineKeyboardButton('Италия', callback_data='5')
+        btn6 = types.InlineKeyboardButton('Корея', callback_data='6')
+        btn7 = types.InlineKeyboardButton('Япония', callback_data='7')
+        btn8 = types.InlineKeyboardButton('Китай', callback_data='8')
+        btn9 = types.InlineKeyboardButton('Великобритания', callback_data='9')
+        btn10 = types.InlineKeyboardButton('Польша', callback_data='10')
+        btn11 = types.InlineKeyboardButton('Испания', callback_data='11')
+        btn12 = types.InlineKeyboardButton('Дания', callback_data='12')
+
+        markup_inline.add(btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,,btn10,,btn11,,btn12)
+        bot.reply_to(message, 'Какой страны фильм ты хочешь посмотреть?', reply_markup=markup_inline)
+        bot.register_next_step_handler(message, answer)

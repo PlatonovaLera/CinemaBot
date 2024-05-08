@@ -1,0 +1,12 @@
+def on_click1(message):
+    if message.text == 'Сгенерировать подборку фильмов':
+        markup_inline = types.InlineKeyboardMarkup()
+        btn1 = types.InlineKeyboardButton('0+', callback_data='1')
+        btn2 = types.InlineKeyboardButton('6+', callback_data='2')
+        btn3 = types.InlineKeyboardButton('12+', callback_data='3')
+        btn4 = types.InlineKeyboardButton('16+', callback_data='4')
+        btn5 = types.InlineKeyboardButton('18+', callback_data='5')
+
+        markup_inline.add(btn1,btn2,btn3,btn4,btn5)
+        bot.reply_to(message, 'Возрастное ограничение для фильма', reply_markup=markup_inline)
+        bot.register_next_step_handler(message, answer)

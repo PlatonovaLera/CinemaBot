@@ -1,0 +1,16 @@
+def on_click1(message):
+    if message.text == 'Сгенерировать подборку фильмов':
+        markup_inline = types.InlineKeyboardMarkup()
+        btn1 = types.InlineKeyboardButton('Хорошее', callback_data='1')
+        btn2 = types.InlineKeyboardButton('Веселое', callback_data='2')
+        btn3 = types.InlineKeyboardButton('Грустное', callback_data='3')
+        btn4 = types.InlineKeyboardButton('Тоскливое', callback_data='4')
+        btn5 = types.InlineKeyboardButton('Романтичное', callback_data='5')
+        btn6 = types.InlineKeyboardButton('Серьезное', callback_data='6')
+        btn7 = types.InlineKeyboardButton('Легкое', callback_data='7')
+        btn7 = types.InlineKeyboardButton('Задумчивое', callback_data='8')
+        btn8 = types.InlineKeyboardButton('Для поднятия настроения', callback_data='9')
+
+        markup_inline.add(btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,,btn10,,btn11,,btn12)
+        bot.reply_to(message, 'Фильм под какое настроение ты хочешь посмотреть?', reply_markup=markup_inline)
+        bot.register_next_step_handler(message, answer)
