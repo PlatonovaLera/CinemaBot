@@ -1,0 +1,41 @@
+def on_click2(message):
+    if message.text == 'Сгенерировать подборку фильмов':
+        markup_inline = types.InlineKeyboardMarkup()
+        btn1 = types.InlineKeyboardButton('меньше 1ч', callback_data='1')
+        btn2 = types.InlineKeyboardButton('от 1ч до 1.5ч', callback_data='2')
+        btn3 = types.InlineKeyboardButton('от 1.5ч до 2ч', callback_data='3')
+        btn4 = types.InlineKeyboardButton('от 2ч до 3ч', callback_data='4')
+        btn5 = types.InlineKeyboardButton('больше 3ч', callback_data='5')
+        markup_inline.add(btn1, btn2, btn3, btn4, btn5)
+        bot.reply_to(message, 'Какой длительности фильм ты хочешь посмотреть?', reply_markup=markup_inline)
+        bot.register_next_step_handler(message, answer)
+
+def on_click3(message):
+    if message.text == 'Сгенерировать подборку фильмов':
+        markup_inline = types.InlineKeyboardMarkup()
+        btn1 = types.InlineKeyboardButton('до 1950', callback_data='1')
+        btn2 = types.InlineKeyboardButton('1950 - 1969', callback_data='2')
+        btn3 = types.InlineKeyboardButton('1970 - 1979', callback_data='3')
+        btn4 = types.InlineKeyboardButton('1980 - 1989', callback_data='4')
+        btn5 = types.InlineKeyboardButton('1990 - 1999', callback_data='5')
+        btn6 = types.InlineKeyboardButton('2000 - 2004', callback_data='6')
+        btn7 = types.InlineKeyboardButton('2005 - 2009', callback_data='7')
+        btn8 = types.InlineKeyboardButton('2010 - 2015', callback_data='8')
+        btn9 = types.InlineKeyboardButton('2015 - 2019', callback_data='9')
+        btn10 = types.InlineKeyboardButton('2020 - 2024', callback_data='10')
+        markup_inline.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10)
+        bot.reply_to(message, 'Какого года фильм ты хочешь посмотреть?', reply_markup=markup_inline)
+        bot.register_next_step_handler(message, answer)
+
+def on_click4(message):
+    if message.text == 'Сгенерировать подборку фильмов':
+        markup_inline = types.InlineKeyboardMarkup()
+        btn1 = types.InlineKeyboardButton('ниже 3.0', callback_data='3')
+        btn2 = types.InlineKeyboardButton('3.0 - 4.9', callback_data='4')
+        btn3 = types.InlineKeyboardButton('5.0 - 6.9', callback_data='5')
+        btn4 = types.InlineKeyboardButton('7.0 - 7.9', callback_data='6')
+        btn5 = types.InlineKeyboardButton('8.0 - 8.9', callback_data='7')
+        btn6 = types.InlineKeyboardButton('9.0 - 10.0', callback_data='8')
+        markup_inline.add(btn1, btn2, btn3, btn4, btn5, btn6)
+        bot.reply_to(message, 'Какой рейтинг долже быть у фильма?', reply_markup=markup_inline)
+        bot.register_next_step_handler(message, answer)
