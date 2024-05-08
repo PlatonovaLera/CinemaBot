@@ -1,0 +1,8 @@
+import csv
+
+with open('C:\\Users\\User\\Desktop\\netflix_titles_nov_2019.csv', encoding='utf-8') as csvfile:
+    # reader = csv.reader(csvfile)
+    reader = csv.Dictreader(csvfile)
+
+    for line in reader:
+        print(line)
