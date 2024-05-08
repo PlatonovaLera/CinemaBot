@@ -1,0 +1,18 @@
+import telebot
+
+bot = telebot.TeleBot('6969036206:AAFrWpg8FYYCxUr8rTtOq_YmzajlM4n6WJU')
+
+@bot.message_handler()
+def info(message):
+    if message.text.lower() == 'привет':
+        bot.send_message(message.chat.id, f'Привет, {message.from_user.first_name}!' )
+    elif message.text.lower() == 'пока':
+        bot.send_message(message.chat.id, f'Возвращайся ещё!' )
+    elif message.text.lower() == 'покат':
+        bot.send_message(message.chat.id, f'Возвращайся ещё!' )
+
+@bot.message_handler(commands=['start'])
+def main(message):
+    bot.send_message(message.chat.id, f'Привет, {message.from_user.first_name}!')
+
+bot.infinity_polling()
