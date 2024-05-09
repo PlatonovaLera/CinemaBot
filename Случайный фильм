@@ -1,0 +1,7 @@
+random_row = session.query(TableName).order_by(func.random()).filter(TableName.category_id == 1).limit(1) // в sql
+
+@bot.message_handler(commands=['random_film'])
+def random_film(message):
+  films = getFilms(' ')
+  bot.send_message(message.chat.id, f'случайный фильм: {films}')
+  
