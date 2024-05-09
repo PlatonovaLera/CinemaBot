@@ -1,0 +1,51 @@
+#тест-кейс для выбора фильма по одному критерию
+import telebot
+import pytest
+
+@pytest.fixture
+def bot():
+    bot = telebot.TeleBot('6969036206:AAFrWpg8FYYCxUr8rTtOq_YmzajlM4n6WJU')  
+    return bot
+
+# Выбор по критерию - жанр
+def test_search_by_genre(bot):
+    genre = "Комедия"
+    message = telebot.types.Message()
+    message.text = genre
+    
+    # Обработка жанра "Комедия"
+    response = handle_user_input(message)
+    
+    # Проверка ответа бота
+    assert response == "Список комедийных фильмов"
+
+def handle_user_input(message):
+    if message.text.lower() == "комедия":
+        return "Список комедийных фильмов"
+
+#тест-кейс для выбора фильма по нескольким критериям 
+import telebot
+from telebot import types
+import pytest
+# Функция, которую нужно протестировать
+def select_movie(genre, director, age_limit):
+    if genre == "Ужасы" and director == "Кристофер Нолан" and age_limit == "16+":
+        return "Список фильмов подходящих по вашим критериям"
+    else:
+        return "Нет фильмов, удовлетворяющих выбранные критерии"
+# Тест-кейс 
+def test_select_movie():
+    genre = "Ужасы"
+    director = "Кристофер Нолан"
+    age_limit = "16+"
+    expected_result = "Список фильмов подходящих по вашим критериям"
+
+    # Вызов функции select_movie с заданными критериями
+    result = select_movie(genre, director, age_limit)
+
+    # Проверка ожидаемого результата
+    assert result == expected_result
+
+# Запуск тестов
+if __name__ == '__main__':
+    pytest.main()
