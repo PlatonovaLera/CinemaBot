@@ -1,0 +1,83 @@
+CREATE TABLE directors (
+id INT IDENTITY(1, 1) NOT NULL,
+CONSTRAINT director_pk PRIMARY KEY (id),
+director_name VARCHAR(100) NOT NULL,
+director_surname VARCHAR(10) NOT NULL,
+gender VARCHAR(10) NOT NULL
+);
+
+CREATE TABLE age_limit (
+id INT IDENTITY(1, 1) NOT NULL,
+CONSTRAINT age_limit_pk PRIMARY KEY (id),
+limit VARCHAR(10) NOT NULL
+);
+
+CREATE TABLE genre (
+id INT IDENTITY(1, 1) NOT NULL,
+CONSTRAINT genre_pk PRIMARY KEY (id),
+genre_name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE country (
+id INT IDENTITY(1, 1) NOT NULL,
+CONSTRAINT country_pk PRIMARY KEY (id),
+country_name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE films (
+id INT IDENTITY(1, 1) NOT NULL,
+film_name VARCHAR(100) NOT NULL,
+film_year INT NOT NULL,
+duration DECIMAL(3, 2) NOT NULL,
+rating DECIMAL(2, 1) NOT NULL,
+id_genre INT NOT NULL,
+id_director INT NOT NULL,
+id_country INT NOT NULL,
+id_age_limit INT NOT NULL,
+PRIMARY KEY (id),
+CONSTRAINT films_genre_fk FOREIGN KEY (id_genre) REFERENCES genre(id) ON UPDATE CASCADE,
+CONSTRAINT films_director_fk FOREIGN KEY (id_director) REFERENCES directors(id) ON UPDATE CASCADE,
+CONSTRAINT films_country_fk FOREIGN KEY (id_country) REFERENCES country(id) ON UPDATE CASCADE,
+CONSTRAINT films_limit_fk FOREIGN KEY (id_age_limit) REFERENCES age_limit(id) ON UPDATE CASCADE
+);
+
+CREATE TABLE tv_shows (
+id INT IDENTITY(1, 1) NOT NULL,
+show_name VARCHAR(100) NOT NULL,
+show_year VARCHAR(10) NOT NULL,
+seasons INT NOT NULL,
+rating DECIMAL(2, 1) NOT NULL,
+id_genre INT NOT NULL,
+id_director INT NOT NULL,
+id_country INT NOT NULL,
+id_age_limit INT NOT NULL,
+PRIMARY KEY (id),
+CONSTRAINT shows_genre_fk FOREIGN KEY (id_genre) REFERENCES genre(id) ON UPDATE CASCADE,
+CONSTRAINT shows_director_fk FOREIGN KEY (id_director) REFERENCES directors(id) ON UPDATE CASCADE,
+CONSTRAINT shows_country_fk FOREIGN KEY (id_country) REFERENCES country(id) ON UPDATE CASCADE,
+CONSTRAINT shows_limit_fk FOREIGN KEY (id_age_limit) REFERENCES age_limit(id) ON UPDATE CASCADE
+);
+
+CREATE TABLE actors (
+id INT IDENTITY(1, 1) NOT NULL,
+CONSTRAINT actor_pk PRIMARY KEY (id),
+actor_name VARCHAR(100) NOT NULL,
+actor_surname VARCHAR(10) NOT NULL,
+gender VARCHAR(10) NOT NULL
+);
+
+CREATE TABLE cast_films (
+id_actor INT NOT NULL,
+id_film INT NOT NULL,
+PRIMARY KEY (id_actor, id_film),
+CONSTRAINT cast_actors_fk FOREIGN KEY (id_actor) REFERENCES actors(id) ON UPDATE CASCADE,
+CONSTRAINT cast_film_fk FOREIGN KEY (id_film) REFERENCES films(id) ON UPDATE CASCADE,
+);
+
+CREATE TABLE cast_shows (
+id_actor INT NOT NULL,
+id_show INT NOT NULL,
+PRIMARY KEY (id_actor, id_show),
+CONSTRAINT cast2_actors_fk FOREIGN KEY (id_actor) REFERENCES actors(id) ON UPDATE CASCADE,
+CONSTRAINT cast2_show_fk FOREIGN KEY (id_show) REFERENCES tv_shows(id) ON UPDATE CASCADE,
+);
