@@ -1,0 +1,9 @@
+import telebot
+
+bot = telebot.Telebot('6969036206:AAFrWpg8FYYCxUr8rTtOq_YmzajlM4n6WJU')
+
+@bot.message_handler(commands=['start'])
+def main(message):
+    bot.send_message(message.chat.id, f'Привет, {message.from_user.username}!')
+
+bot.polling(none_stop=True)
