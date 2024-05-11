@@ -24,6 +24,13 @@ CONSTRAINT country_pk PRIMARY KEY (id),
 country_name VARCHAR(100) NOT NULL
 );
 
+CREATE TABLE subscription (
+id INT IDENTITY(1, 1) NOT NULL,
+CONSTRAINT sub_pk PRIMARY KEY (id),
+sub_name VARCHAR(50) NOT NULL,
+);
+
+
 CREATE TABLE films (
 id INT IDENTITY(1, 1) NOT NULL,
 film_name VARCHAR(100) NOT NULL,
@@ -56,6 +63,33 @@ CONSTRAINT shows_genre_fk FOREIGN KEY (id_genre) REFERENCES genre(id) ON UPDATE 
 CONSTRAINT shows_director_fk FOREIGN KEY (id_director) REFERENCES directors(id) ON UPDATE CASCADE,
 CONSTRAINT shows_country_fk FOREIGN KEY (id_country) REFERENCES country(id) ON UPDATE CASCADE,
 CONSTRAINT shows_limit_fk FOREIGN KEY (id_age_limit) REFERENCES age_limit(id) ON UPDATE CASCADE
+);
+
+CREATE TABLE users (
+id INT IDENTITY(1, 1) NOT NULL,
+user_name VARCHAR(100) NOT NULL,
+user_surname VARCHAR(100) NOT NULL,
+birthday DATE NOT NULL,
+gender VARCHAR(10) NOT NULL,
+id_sub INT NOT NULL,
+PRIMARY KEY (id),
+CONSTRAINT users_sub_fk FOREIGN KEY (id_sub) REFERENCES subscription(id) ON UPDATE CASCADE,
+);
+
+CREATE TABLE user_films (
+id_user INT NOT NULL,
+id_film INT NOT NULL,
+PRIMARY KEY (id_user, id_film),
+CONSTRAINT watch_users_fk FOREIGN KEY (id_user) REFERENCES users(id) ON UPDATE CASCADE,
+CONSTRAINT watch_film_fk FOREIGN KEY (id_film) REFERENCES films(id) ON UPDATE CASCADE,
+);
+
+CREATE TABLE user_shows (
+id_user INT NOT NULL,
+id_show INT NOT NULL,
+PRIMARY KEY (id_user, id_show),
+CONSTRAINT watch2_users_fk FOREIGN KEY (id_user) REFERENCES users(id) ON UPDATE CASCADE,
+CONSTRAINT watch2_show_fk FOREIGN KEY (id_show) REFERENCES tv_shows(id) ON UPDATE CASCADE,
 );
 
 CREATE TABLE actors (
