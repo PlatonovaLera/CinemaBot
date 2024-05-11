@@ -1,9 +1,18 @@
 import telebot
+from telebot import types
 
-bot = telebot.Telebot('6969036206:AAFrWpg8FYYCxUr8rTtOq_YmzajlM4n6WJU')
+bot = telebot.TeleBot('6969036206:AAFrWpg8FYYCxUr8rTtOq_YmzajlM4n6WJU')
 
 @bot.message_handler(commands=['start'])
-def main(message):
-    bot.send_message(message.chat.id, f'Привет, {message.from_user.username}!')
+def start(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn1 = types.KeyboardButton('Подборка фильмов')
+    btn2 = types.KeyboardButton('Подборка сериалов')
+    btn3 = types.KeyboardButton('Случайный фильм')
+    btn4 = types.KeyboardButton('Случайный сериал')
+    markup.row(btn1, btn2)
+    markup.row(btn3, btn4)
+    bot.send_message(message.chat.id, f'Привет, {message.from_user.username}! Выбери, что ты хочешь сделать 👇🏻', reply_markup=markup)
+    bot.register_next_step_handler(message, on_click)
 
 bot.polling(none_stop=True)
