@@ -6,6 +6,7 @@ director_surname VARCHAR(10) NOT NULL,
 gender VARCHAR(10) NOT NULL
 );
 
+
 CREATE TABLE age_limit (
 id INT IDENTITY(1, 1) NOT NULL,
 CONSTRAINT age_limit_pk PRIMARY KEY (id),
@@ -223,3 +224,86 @@ INSERT INTO country (id, country_name) VALUES (54, 'Чехия');
 INSERT INTO country (id, country_name) VALUES (55, 'Швейцария');
 INSERT INTO country (id, country_name) VALUES (56, 'Швеция');
 INSERT INTO country (id, country_name) VALUES (57, 'Япония');
+
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (1, 'Квентин', 'Тарантино', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (2, 'Кристофер', 'Нолан', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (3, 'Дени', 'Вильнев', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (4, 'Дэвид', 'Линч', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (5, 'Джеймс', 'Кэмерон', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (6, 'Дэвид', 'Финчер', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (7, 'Тим', 'Бертон', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (8, 'Ридли', 'Скотт', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (9, 'Вуди', 'Аллен', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (10, 'Альфред', 'Хичкок', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (11, 'Ларс', 'фон Триер', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (12, 'Гай', 'Ричи', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (13, 'Зак', 'Снайдер', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (14, 'Роман', 'Полански', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (15, 'Никита', 'Михалков', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (16, 'Алексей', 'Балабанов', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (17, 'Фрэнсис', 'Коппола', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (18, 'Стэнли', 'Кубрик', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (19, 'Эльдар', 'Рязанов', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (20, 'Леонид', 'Гайдай', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (21, 'Сергей', 'Бондарчук', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (22, 'Федерико', 'Феллини', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (23, 'Уолт', 'Дисней', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (24, 'Юрий', 'Быков', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (25, 'Илья', 'Найшуллер', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (26, 'Сергей', 'Эйзенштейн', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (27, 'Акира', 'Курасава', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (28, 'Хаяо', 'Миядзаки', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (29, 'М.Найт', 'Шьямалан', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (30, 'Юрий', 'Быков', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (31, 'Даррен', 'Аронофски', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (32, 'Крис', 'Коламбус', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (33, 'Дэвид', 'Йейтс', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (34, 'Джеймс', 'Ганн', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (35, 'Андрей', 'Звягинцев', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (36, 'София', 'Коппола', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (37, 'Кира', 'Муратова', 'женский');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (38, 'Нэнси', 'Майерс', 'женский');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (39, 'Константин', 'Феоктистов', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (40, 'Макото', 'Синкай', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (41, 'Сатоси', 'Кон', 'мужской');
+
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (1, 'Джек', 'Николсон', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (2, 'Аль', 'Пачино', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (3, 'Антонио', 'Бандерас', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (4, 'Дензел', 'Вашингтон', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (5, 'Джим', 'Керри', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (6, 'Гари', 'Олдман', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (7, 'Джонни', 'Дэпп', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (8, 'Джон', 'Траволта', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (9, 'Майкл', 'Дуглас', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (10, 'Николас', 'Кейдж', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (11, 'Самюэл', 'Л. Джексон', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (12, 'Вуди', 'Харрельсон', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (13, 'Бен', 'Аффлек', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (14, 'Бенедикт', 'Камбербэтч', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (15, 'Билл', 'Мюрей', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (16, 'Брэд', 'Питт', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (17, 'Брэдли', 'Купер', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (18, 'Брюс', 'Уиллис', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (19, 'Генри', 'Кавилл', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (20, 'Джаред', 'Лето', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (21, 'Джеймс', 'Франко', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (22, 'Джордж', 'Клуни', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (23, 'Джуд', 'Лоу', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (24, 'Дэниел', 'Рэдклифф', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (25, 'Дуэйн', 'Джонсон', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (26, 'Кевин', 'Спейси', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (27, 'Киану', 'Ривз', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (28, 'Киллиан', 'Мерфи', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (29, 'Кристиан', 'Бейл', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (30, 'Леонардо', 'Ди Каприо', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (31, 'Лиам', 'Ниссон', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (32, 'Том', 'Круз', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (33, 'Марк', 'Руффало', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (34, 'Мэтт', 'Деймон', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (35, 'Мэтью', 'МакКонахи', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (36, 'Уилл', 'Смит', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (37, 'Том', 'Харди', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (38, 'Роберт', 'Де Ниро', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (39, 'Мартин', 'Фримен', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (40, 'Мадс', 'Миккельсен', 'мужской');
