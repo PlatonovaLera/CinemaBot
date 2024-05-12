@@ -1,0 +1,27 @@
+import pytest
+from telegram import Update, User, Bot, Message, CallbackQuery
+from telegram.ext import CallbackContext
+from telegram.ext import Dispatcher
+
+from your_bot import start_command_handler, genre_button_callback, rating_button_callback
+
+# Фиктивные данные для тестирования
+user = User(123, "test_user")
+bot = Bot("test_token")
+update = Update(1, message=Message(1, user, None, "start"))
+dispatcher = Dispatcher(bot, None, use_context=True)
+callback_context = CallbackContext(dispatcher)
+
+def test_start_command_handler():
+    start_command_handler(update, callback_context)
+    assert callback_context.bot.send_message.called, "Не вызван метод send_message"
+
+def test_genre_button_callback():
+    callback = CallbackQuery(1, user, "genre_action")
+    genre_button_callback(callback, callback_context)
+    assert callback_context.bot.send_message.called, "Не вызван метод send_message"
+
+def test_rating_button_callback():
+    callback = CallbackQuery(1, user, "rating_8")
+    rating_button_callback(callback, callback_context)
+    assert callback_context.bot.send_message.called, "Не вызван метод send_message"
