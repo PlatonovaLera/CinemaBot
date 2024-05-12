@@ -38,5 +38,8 @@ def on_click4(message):
         btn5 = types.InlineKeyboardButton('8.0 - 8.9', callback_data='7')
         btn6 = types.InlineKeyboardButton('9.0 - 10.0', callback_data='8')
         markup_inline.add(btn1, btn2, btn3, btn4, btn5, btn6)
+        markup.row(btn1, btn2)
+        markup.row(btn3, btn4)
+        markup.row(btn5, btn6)
         bot.reply_to(message, 'Какой рейтинг долже быть у фильма?', reply_markup=markup_inline)
         bot.register_next_step_handler(message, answer)
