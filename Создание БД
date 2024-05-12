@@ -37,12 +37,10 @@ film_name VARCHAR(100) NOT NULL,
 film_year INT NOT NULL,
 duration DECIMAL(3, 2) NOT NULL,
 rating DECIMAL(2, 1) NOT NULL,
-id_genre INT NOT NULL,
 id_director INT NOT NULL,
 id_country INT NOT NULL,
 id_age_limit INT NOT NULL,
 PRIMARY KEY (id),
-CONSTRAINT films_genre_fk FOREIGN KEY (id_genre) REFERENCES genre(id) ON UPDATE CASCADE,
 CONSTRAINT films_director_fk FOREIGN KEY (id_director) REFERENCES directors(id) ON UPDATE CASCADE,
 CONSTRAINT films_country_fk FOREIGN KEY (id_country) REFERENCES country(id) ON UPDATE CASCADE,
 CONSTRAINT films_limit_fk FOREIGN KEY (id_age_limit) REFERENCES age_limit(id) ON UPDATE CASCADE
@@ -74,6 +72,22 @@ gender VARCHAR(10) NOT NULL,
 id_sub INT NOT NULL,
 PRIMARY KEY (id),
 CONSTRAINT users_sub_fk FOREIGN KEY (id_sub) REFERENCES subscription(id) ON UPDATE CASCADE,
+);
+
+CREATE TABLE genre_films (
+id_genre INT NOT NULL,
+id_film INT NOT NULL,
+PRIMARY KEY (id_genre, id_film),
+CONSTRAINT genre_film_fk FOREIGN KEY (id_genre) REFERENCES genre(id) ON UPDATE CASCADE,
+CONSTRAINT genre_film_fk FOREIGN KEY (id_film) REFERENCES films(id) ON UPDATE CASCADE,
+);
+
+CREATE TABLE genre_shows (
+id_genre INT NOT NULL,
+id_show INT NOT NULL,
+PRIMARY KEY (id_genre, id_show),
+CONSTRAINT genre_show_fk FOREIGN KEY (id_genre) REFERENCES genre(id) ON UPDATE CASCADE,
+CONSTRAINT genre_show_fk FOREIGN KEY (id_film) REFERENCES tv_shows(id) ON UPDATE CASCADE,
 );
 
 CREATE TABLE user_films (
@@ -115,3 +129,39 @@ PRIMARY KEY (id_actor, id_show),
 CONSTRAINT cast2_actors_fk FOREIGN KEY (id_actor) REFERENCES actors(id) ON UPDATE CASCADE,
 CONSTRAINT cast2_show_fk FOREIGN KEY (id_show) REFERENCES tv_shows(id) ON UPDATE CASCADE,
 );
+
+INSERT INTO age_limit (id, limit) VALUES (1, '0+');
+INSERT INTO age_limit (id, limit) VALUES (2, '6+');
+INSERT INTO age_limit (id, limit) VALUES (3, '12+');
+INSERT INTO age_limit (id, limit) VALUES (4, '16+');
+INSERT INTO age_limit (id, limit) VALUES (5, '18+');
+
+INSERT INTO subscription (id, sub_name) VALUES (1, 'Лайт');
+INSERT INTO subscription (id, sub_name) VALUES (2, 'Медиум');
+INSERT INTO subscription (id, sub_name) VALUES (3, 'Премиум');
+
+INSERT INTO genre (id, genre_name) VALUES (1, 'Аниме');
+INSERT INTO genre (id, genre_name) VALUES (2, 'Бигорафия');
+INSERT INTO genre (id, genre_name) VALUES (3, 'Боевик');
+INSERT INTO genre (id, genre_name) VALUES (4, 'Вестерн');
+INSERT INTO genre (id, genre_name) VALUES (5, 'Военный');
+INSERT INTO genre (id, genre_name) VALUES (6, 'Детектив');
+INSERT INTO genre (id, genre_name) VALUES (7, 'Документальный');
+INSERT INTO genre (id, genre_name) VALUES (8, 'Драма');
+INSERT INTO genre (id, genre_name) VALUES (9, 'Исторический');
+INSERT INTO genre (id, genre_name) VALUES (10, 'Комедия');
+INSERT INTO genre (id, genre_name) VALUES (11, 'Короткометражка');
+INSERT INTO genre (id, genre_name) VALUES (12, 'Крмиинал');
+INSERT INTO genre (id, genre_name) VALUES (13, 'Мелодрама');
+INSERT INTO genre (id, genre_name) VALUES (14, 'Музыка');
+INSERT INTO genre (id, genre_name) VALUES (15, 'Мультфильм');
+INSERT INTO genre (id, genre_name) VALUES (16, 'Мюзикл');
+INSERT INTO genre (id, genre_name) VALUES (17, 'Приключения');
+INSERT INTO genre (id, genre_name) VALUES (18, 'Семейный');
+INSERT INTO genre (id, genre_name) VALUES (19, 'Спорт');
+INSERT INTO genre (id, genre_name) VALUES (20, 'Триллер');
+INSERT INTO genre (id, genre_name) VALUES (21, 'Ужасы');
+INSERT INTO genre (id, genre_name) VALUES (22, 'Фантастика');
+INSERT INTO genre (id, genre_name) VALUES (23, 'Нуар');
+INSERT INTO genre (id, genre_name) VALUES (24, 'Фэнтези');
+INSERT INTO genre (id, genre_name) VALUES (25, 'Мистика');
