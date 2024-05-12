@@ -15,4 +15,18 @@ def start(message):
     bot.send_message(message.chat.id, f'Привет, {message.from_user.username}! Выбери, что ты хочешь сделать 👇🏻', reply_markup=markup)
     bot.register_next_step_handler(message, on_click)
 
+def on_click(message):
+    if message.text == 'Подборка фильмов':
+        #bot.register_next_step_handler(message, on_click_list_of_films)
+        bot.send_message(message.chat.id, 'Вы выбрали подборку фильмов')
+    elif message.text == 'Подборка сериалов':
+        #bot.register_next_step_handler(message, on_click_list_of_series)
+        bot.send_message(message.chat.id, 'Вы выбрали подборку сериалов')
+    elif message.text == 'Случайный фильм':
+        bot.send_message(message.chat.id, 'Вы выбрали случайный фильм')
+        #bot.register_next_step_handler(message, on_click_random_film)
+    elif message.text == 'Случайный сериал':
+        bot.send_message(message.chat.id, 'Вы выбрали случайный сериал')
+        #bot.register_next_step_handler(message, on_click_random_series)
+
 bot.polling(none_stop=True)
