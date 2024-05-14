@@ -47,28 +47,6 @@ CONSTRAINT films_country_fk FOREIGN KEY (id_country) REFERENCES country(id) ON U
 CONSTRAINT films_limit_fk FOREIGN KEY (id_age_limit) REFERENCES age_limit(id) ON UPDATE CASCADE
 );
 
-INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (1, 'Интерстеллар', 2014, 169, 8.7, 2, 42, 5);
-INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (2, 'Крестный отец', 1972, 175, 9.2, 17, 42, 5);
-INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (3, 'Крестный отец 2', 1974, 202, 9.0, 17, 42, 5);
-INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (4, 'Славные парни', 1990, 145, 8.7, 42, 42, 5);
-INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (5, 'Темный рыцарь', 2008, 152, 9.0, 2, 42, 5);
-INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (6, 'Титаник', 1997, 194, 7.9, 5, 42, 3);
-INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (7, 'Семь', 1995, 127, 8.6, 6, 42, 5);
-INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (8, 'Остров проклятых', 2010, 138, 8.2, 42, 42, 5);
-INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (9, 'Головокружение', 1958, 128, 8.3, 10, 42, 3);
-INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (10, 'Психо', 1960, 180, 8.5, 109, 42, 5)
-
-INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (11, 'Криминальное чтиво', 1994, 154, 8.9, 1, 42, 5);
-INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (12, 'Список Шиндлера', 1993, 195, 9.0, 43, 42, 5);
-INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (13, 'Престиж', 2006, 130, 8.5, 2, 42, 3);
-INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (14, 'Бойцовский клуб', 1999, 139, 8.8, 6, 42, 5);
-INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (15, 'Волк с Уолл-стрит', 2013, 180, 8.2, 42, 42, 5);
-INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (16, 'Сияние', 1980, 146, 8.4, 18, 42, 5);
-INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (17, 'Леон', 1994, 133, 8.5, 44, 51, 5);
-INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (18, 'Сталкер', 1979, 163, 8.1, 45, 41, 3);
-INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (19, 'Головокружение', 1958, 128, 8.3, 10, 42, 3);
-INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (20, 'Психо', 1960, 180, 8.5, 109, 42, 5)
-
 CREATE TABLE tv_shows (
 id INT IDENTITY(1, 1) NOT NULL,
 show_name VARCHAR(100) NOT NULL,
@@ -465,3 +443,35 @@ INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (169, 'Лор�
 INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (170, 'Дженсен', 'Эклс', 'мужской');
 INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (171, 'Том', 'Хиддлстон', 'мужской');
 INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (172, 'Иэн', 'Макшейн', 'мужской');
+
+
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (1, 'Интерстеллар', 2014, 169, 8.7, 2, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (2, 'Крестный отец', 1972, 175, 9.2, 17, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (3, 'Крестный отец 2', 1974, 202, 9.0, 17, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (4, 'Славные парни', 1990, 145, 8.7, 42, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (5, 'Темный рыцарь', 2008, 152, 9.0, 2, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (6, 'Титаник', 1997, 194, 7.9, 5, 42, 3);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (7, 'Семь', 1995, 127, 8.6, 6, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (8, 'Остров проклятых', 2010, 138, 8.2, 42, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (9, 'Головокружение', 1958, 128, 8.3, 10, 42, 3);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (10, 'Психо', 1960, 180, 8.5, 10, 42, 5)
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (11, 'Криминальное чтиво', 1994, 154, 8.9, 1, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (12, 'Список Шиндлера', 1993, 195, 9.0, 43, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (13, 'Престиж', 2006, 130, 8.5, 2, 42, 3);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (14, 'Бойцовский клуб', 1999, 139, 8.8, 6, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (15, 'Волк с Уолл-стрит', 2013, 180, 8.2, 42, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (16, 'Сияние', 1980, 146, 8.4, 18, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (17, 'Леон', 1994, 133, 8.5, 44, 51, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (18, 'Сталкер', 1979, 163, 8.1, 45, 41, 3);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (19, 'Однажды в Голливуде', 2019, 161, 7.6, 1, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (20, 'Бешеные псы', 1992, 100, 8.5, 1, 42, 5)
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (21, 'Реквием по мечте', 2000, 102, 8.3, 31, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (22, 'Черный лебедь', 2010, 103, 8, 31, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (23, 'Гарри Поттер и философский камень', 2001, 152, 7.6, 32, 9, 3);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (24, 'Отступники', 2006, 151, 8.5, 42, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (25, 'Навсикая из долины ветров', 1984, 115, 8, 28, 57, 3);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (26, 'Сонная лощина', 1999, 105, 7.3, 7, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (27, 'Унесенные призраками', 2001, 125, 8.6, 28, 57, 3);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (28, 'Три богатыря: Ход конем', 2015, 74, 5.2, 39, 39, 2);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (29, 'Три богатыря и Конь на троне', 2021, 87, 5.6, 39, 39, 2);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (30, 'Синий бархат', 1986, 120, 7.7, 4, 42, 5);
