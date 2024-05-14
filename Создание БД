@@ -36,7 +36,7 @@ CREATE TABLE films (
 id INT IDENTITY(1, 1) NOT NULL,
 film_name VARCHAR(100) NOT NULL,
 film_year INT NOT NULL,
-duration DECIMAL(3, 2) NOT NULL,
+duration INT NOT NULL,
 rating DECIMAL(2, 1) NOT NULL,
 id_director INT NOT NULL,
 id_country INT NOT NULL,
@@ -46,6 +46,28 @@ CONSTRAINT films_director_fk FOREIGN KEY (id_director) REFERENCES directors(id) 
 CONSTRAINT films_country_fk FOREIGN KEY (id_country) REFERENCES country(id) ON UPDATE CASCADE,
 CONSTRAINT films_limit_fk FOREIGN KEY (id_age_limit) REFERENCES age_limit(id) ON UPDATE CASCADE
 );
+
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (1, 'Интерстеллар', 2014, 169, 8.7, 2, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (2, 'Крестный отец', 1972, 175, 9.2, 17, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (3, 'Крестный отец 2', 1974, 202, 9.0, 17, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (4, 'Славные парни', 1990, 145, 8.7, 42, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (5, 'Темный рыцарь', 2008, 152, 9.0, 2, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (6, 'Титаник', 1997, 194, 7.9, 5, 42, 3);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (7, 'Семь', 1995, 127, 8.6, 6, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (8, 'Остров проклятых', 2010, 138, 8.2, 42, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (9, 'Головокружение', 1958, 128, 8.3, 10, 42, 3);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (10, 'Психо', 1960, 180, 8.5, 109, 42, 5)
+
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (11, 'Криминальное чтиво', 1994, 154, 8.9, 1, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (12, 'Список Шиндлера', 1993, 195, 9.0, 43, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (13, 'Престиж', 2006, 130, 8.5, 2, 42, 3);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (14, 'Бойцовский клуб', 1999, 139, 8.8, 6, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (15, 'Волк с Уолл-стрит', 2013, 180, 8.2, 42, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (16, 'Сияние', 1980, 146, 8.4, 18, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (17, 'Леон', 1994, 133, 8.5, 44, 51, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (18, 'Сталкер', 1979, 163, 8.1, 45, 41, 3);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (19, 'Головокружение', 1958, 128, 8.3, 10, 42, 3);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (20, 'Психо', 1960, 180, 8.5, 109, 42, 5)
 
 CREATE TABLE tv_shows (
 id INT IDENTITY(1, 1) NOT NULL,
@@ -241,7 +263,7 @@ INSERT INTO directors (id, director_name, director_surname, gender) VALUES (13, 
 INSERT INTO directors (id, director_name, director_surname, gender) VALUES (14, 'Роман', 'Полански', 'мужской');
 INSERT INTO directors (id, director_name, director_surname, gender) VALUES (15, 'Никита', 'Михалков', 'мужской');
 INSERT INTO directors (id, director_name, director_surname, gender) VALUES (16, 'Алексей', 'Балабанов', 'мужской');
-INSERT INTO directors (id, director_name, director_surname, gender) VALUES (17, 'Фрэнсис', 'Коппола', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (17, 'Фрэнсис Форд', 'Коппола', 'мужской');
 INSERT INTO directors (id, director_name, director_surname, gender) VALUES (18, 'Стэнли', 'Кубрик', 'мужской');
 INSERT INTO directors (id, director_name, director_surname, gender) VALUES (19, 'Эльдар', 'Рязанов', 'мужской');
 INSERT INTO directors (id, director_name, director_surname, gender) VALUES (20, 'Леонид', 'Гайдай', 'мужской');
@@ -266,6 +288,10 @@ INSERT INTO directors (id, director_name, director_surname, gender) VALUES (38, 
 INSERT INTO directors (id, director_name, director_surname, gender) VALUES (39, 'Константин', 'Феоктистов', 'мужской');
 INSERT INTO directors (id, director_name, director_surname, gender) VALUES (40, 'Макото', 'Синкай', 'мужской');
 INSERT INTO directors (id, director_name, director_surname, gender) VALUES (41, 'Сатоси', 'Кон', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (42, 'Мартин', 'Скорсезе', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (43, 'Стивен', 'Спилберг', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (44, 'Люк', 'Бессон', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (45, 'Андрей', 'Тарковский', 'мужской');
 
 INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (1, 'Мэрил', 'Стрип', 'женский');
 INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (2, 'Кэмерон', 'Диаз', 'женский');
