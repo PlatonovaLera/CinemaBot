@@ -50,16 +50,10 @@ CONSTRAINT films_limit_fk FOREIGN KEY (id_age_limit) REFERENCES age_limit(id) ON
 CREATE TABLE tv_shows (
 id INT IDENTITY(1, 1) NOT NULL,
 show_name VARCHAR(100) NOT NULL,
-show_year VARCHAR(10) NOT NULL,
+years VARCHAR(15) NOT NULL,
 seasons INT NOT NULL,
-rating DECIMAL(2, 1) NOT NULL,
-id_genre INT NOT NULL,
-id_director INT NOT NULL,
 id_country INT NOT NULL,
-id_age_limit INT NOT NULL,
 PRIMARY KEY (id),
-CONSTRAINT shows_genre_fk FOREIGN KEY (id_genre) REFERENCES genre(id) ON UPDATE CASCADE,
-CONSTRAINT shows_director_fk FOREIGN KEY (id_director) REFERENCES directors(id) ON UPDATE CASCADE,
 CONSTRAINT shows_country_fk FOREIGN KEY (id_country) REFERENCES country(id) ON UPDATE CASCADE,
 CONSTRAINT shows_limit_fk FOREIGN KEY (id_age_limit) REFERENCES age_limit(id) ON UPDATE CASCADE
 );
@@ -68,7 +62,6 @@ CREATE TABLE users (
 id INT IDENTITY(1, 1) NOT NULL,
 user_name VARCHAR(100) NOT NULL,
 user_surname VARCHAR(100) NOT NULL,
-birthday DATE NOT NULL,
 gender VARCHAR(10) NOT NULL,
 id_sub INT NOT NULL,
 PRIMARY KEY (id),
@@ -88,7 +81,7 @@ id_genre INT NOT NULL,
 id_show INT NOT NULL,
 PRIMARY KEY (id_genre, id_show),
 CONSTRAINT genre_show_fk FOREIGN KEY (id_genre) REFERENCES genre(id) ON UPDATE CASCADE,
-CONSTRAINT genre_show_fk FOREIGN KEY (id_film) REFERENCES tv_shows(id) ON UPDATE CASCADE,
+CONSTRAINT genre_show_fk FOREIGN KEY (id_show) REFERENCES tv_shows(id) ON UPDATE CASCADE,
 );
 
 CREATE TABLE user_films (
@@ -475,3 +468,92 @@ INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_c
 INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (28, 'Три богатыря: Ход конем', 2015, 74, 5.2, 39, 39, 2);
 INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (29, 'Три богатыря и Конь на троне', 2021, 87, 5.6, 39, 39, 2);
 INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (30, 'Синий бархат', 1986, 120, 7.7, 4, 42, 5);
+
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (1, 'Сплетница', '2007-2012', 6, 42);
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (2, 'Однажды в сказке', '2011-2018', 7, 42);
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (3, 'Отчаянные домохозяйки', '2004-2012', 8, 42);
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (4, 'Касл', '2009-2016', 8, 42);
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (5, 'Большая маленькая ложь', '2017-2019', 2, 42);
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (6, 'Твин Пикс', '1990-2017', 3, 42);
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (7, 'Шерлок', '2010-2017', 4, 9);
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (8, 'Доктор Хаус', '2004-2012', 8, 42);
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (9, 'Обмани меня', '2009-2011', 3, 42);
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (10, 'Сверхъестественное', '2005-2020', 15, 42);
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (11, 'Почему женщины убивают', '2019-2021', 2, 42);
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (12, 'Ривердейл', '2017-2023', 7, 42);
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (13, 'Фарго', '2014-н.в.', 6, 42);
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (14, 'Локи', '2021-2023', 2, 42);
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (15, 'Пацаны', '2019-н.в.', 4, 42);
+
+INSERT INTO users (id, user_name, user_surname, gender, id_sub) VALUES (1, 'Мария', 'Иванова', 'женский', 1);
+INSERT INTO users (id, user_name, user_surname, gender, id_sub) VALUES (2, 'Дарья', 'Корнеева', 'женский', 2);
+INSERT INTO users (id, user_name, user_surname, gender, id_sub) VALUES (3, 'Владимир', 'Дуров', 'мужской', 2);
+INSERT INTO users (id, user_name, user_surname, gender, id_sub) VALUES (4, 'Иван', 'Карпов', 'мужской', 3);
+INSERT INTO users (id, user_name, user_surname, gender, id_sub) VALUES (5, 'Даниил', 'Реданов', 'мужской', 3);
+INSERT INTO users (id, user_name, user_surname, gender, id_sub) VALUES (6, 'Софья', 'Липина', 'женский', 3);
+INSERT INTO users (id, user_name, user_surname, gender, id_sub) VALUES (7, 'Егор', 'Валов', 'мужской', 3);
+INSERT INTO users (id, user_name, user_surname, gender, id_sub) VALUES (8, 'Татьяна', 'Ланская', 'женский', 2);
+INSERT INTO users (id, user_name, user_surname, gender, id_sub) VALUES (9, 'Полина', 'Ерофеева', 'женский', 1);
+INSERT INTO users (id, user_name, user_surname, gender, id_sub) VALUES (10, 'Роман', 'Халов', 'мужской', 1);
+
+INSERT INTO user_films (id_user, id_film) VALUES (1, 2);
+INSERT INTO user_films (id_user, id_film) VALUES (2, 15);
+INSERT INTO user_films (id_user, id_film) VALUES (3, 7);
+INSERT INTO user_films (id_user, id_film) VALUES (4, 8);
+INSERT INTO user_films (id_user, id_film) VALUES (5, 3);
+INSERT INTO user_films (id_user, id_film) VALUES (6, 1);
+INSERT INTO user_films (id_user, id_film) VALUES (7, 4);
+INSERT INTO user_films (id_user, id_film) VALUES (8, 29);
+INSERT INTO user_films (id_user, id_film) VALUES (9, 23);
+INSERT INTO user_films (id_user, id_film) VALUES (10, 21);
+INSERT INTO user_films (id_user, id_film) VALUES (1, 12);
+INSERT INTO user_films (id_user, id_film) VALUES (2, 24);
+INSERT INTO user_films (id_user, id_film) VALUES (3, 25);
+INSERT INTO user_films (id_user, id_film) VALUES (4, 1);
+INSERT INTO user_films (id_user, id_film) VALUES (5, 2);
+INSERT INTO user_films (id_user, id_film) VALUES (6, 3);
+INSERT INTO user_films (id_user, id_film) VALUES (7, 4);
+INSERT INTO user_films (id_user, id_film) VALUES (8, 5);
+INSERT INTO user_films (id_user, id_film) VALUES (9, 5;
+INSERT INTO user_films (id_user, id_film) VALUES (10, 5);
+INSERT INTO user_films (id_user, id_film) VALUES (1, 30);
+INSERT INTO user_films (id_user, id_film) VALUES (2, 4;
+INSERT INTO user_films (id_user, id_film) VALUES (3, 11);
+INSERT INTO user_films (id_user, id_film) VALUES (4, 27);
+INSERT INTO user_films (id_user, id_film) VALUES (5, 13);
+INSERT INTO user_films (id_user, id_film) VALUES (4, 16);
+INSERT INTO user_films (id_user, id_film) VALUES (5, 22);
+INSERT INTO user_films (id_user, id_film) VALUES (2, 2);
+INSERT INTO user_films (id_user, id_film) VALUES (3, 19);
+INSERT INTO user_films (id_user, id_film) VALUES (1, 22);
+
+INSERT INTO user_shows (id_user, id_show) VALUES (1, 2);
+INSERT INTO user_shows (id_user, id_show) VALUES (2, 15);
+INSERT INTO user_shows (id_user, id_show) VALUES (3, 7);
+INSERT INTO user_shows (id_user, id_show) VALUES (4, 8);
+INSERT INTO user_shows (id_user, id_show) VALUES (5, 3);
+INSERT INTO user_shows (id_user, id_show) VALUES (6, 1);
+INSERT INTO user_shows (id_user, id_show) VALUES (2, 4);
+INSERT INTO user_shows (id_user, id_show) VALUES (5, 9);
+INSERT INTO user_shows (id_user, id_show) VALUES (9, 3);
+INSERT INTO user_shows (id_user, id_show) VALUES (10, 11);
+INSERT INTO user_shows (id_user, id_show) VALUES (1, 12);
+INSERT INTO user_shows (id_user, id_show) VALUES (2, 4);
+INSERT INTO user_shows (id_user, id_show) VALUES (3, 5);
+INSERT INTO user_shows (id_user, id_show) VALUES (4, 10);
+INSERT INTO user_shows (id_user, id_show) VALUES (5, 6);
+INSERT INTO user_shows (id_user, id_show) VALUES (6, 13);
+INSERT INTO user_shows (id_user, id_show) VALUES (6, 5);
+INSERT INTO user_shows (id_user, id_show) VALUES (9, 13);
+INSERT INTO user_shows (id_user, id_show) VALUES (9, 14);
+INSERT INTO user_shows (id_user, id_show) VALUES (10, 15);
+INSERT INTO user_shows (id_user, id_show) VALUES (1, 10);
+INSERT INTO user_shows (id_user, id_show) VALUES (2, 14);
+INSERT INTO user_shows (id_user, id_show) VALUES (3, 11);
+INSERT INTO user_shows (id_user, id_show) VALUES (4, 7);
+INSERT INTO user_shows (id_user, id_show) VALUES (10, 13);
+INSERT INTO user_shows (id_user, id_show) VALUES (4, 15);
+INSERT INTO user_shows (id_user, id_show) VALUES (5, 22);
+INSERT INTO user_shows (id_user, id_show) VALUES (2, 2);
+INSERT INTO user_shows (id_user, id_show) VALUES (3, 9);
+INSERT INTO user_shows (id_user, id_show) VALUES (1, 8);
