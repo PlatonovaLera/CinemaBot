@@ -18,15 +18,19 @@ def start(message):
 def on_click(message):
     if message.text == 'Подборка фильмов':
         #bot.register_next_step_handler(message, on_click_list_of_films)
-        bot.send_message(message.chat.id, 'Вы выбрали подборку фильмов')
+        #bot.send_message(message.chat.id, 'Вы выбрали подборку фильмов')
+        pass
     elif message.text == 'Подборка сериалов':
         #bot.register_next_step_handler(message, on_click_list_of_series)
-        bot.send_message(message.chat.id, 'Вы выбрали подборку сериалов')
+        #bot.send_message(message.chat.id, 'Вы выбрали подборку сериалов')
+        pass
     elif message.text == 'Случайный фильм':
-        bot.send_message(message.chat.id, 'Вы выбрали случайный фильм')
+        #bot.send_message(message.chat.id, 'Вы выбрали случайный фильм')
         #bot.register_next_step_handler(message, on_click_random_film)
+        pass
     elif message.text == 'Случайный сериал':
-        bot.send_message(message.chat.id, 'Вы выбрали случайный сериал')
+        #bot.send_message(message.chat.id, 'Вы выбрали случайный сериал')
         #bot.register_next_step_handler(message, on_click_random_series)
+        pass
 
 bot.polling(none_stop=True)

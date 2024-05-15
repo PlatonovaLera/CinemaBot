@@ -31,12 +31,11 @@ CONSTRAINT sub_pk PRIMARY KEY (id),
 sub_name VARCHAR(50) NOT NULL,
 );
 
-
 CREATE TABLE films (
 id INT IDENTITY(1, 1) NOT NULL,
 film_name VARCHAR(100) NOT NULL,
 film_year INT NOT NULL,
-duration DECIMAL(3, 2) NOT NULL,
+duration INT NOT NULL,
 rating DECIMAL(2, 1) NOT NULL,
 id_director INT NOT NULL,
 id_country INT NOT NULL,
@@ -50,16 +49,10 @@ CONSTRAINT films_limit_fk FOREIGN KEY (id_age_limit) REFERENCES age_limit(id) ON
 CREATE TABLE tv_shows (
 id INT IDENTITY(1, 1) NOT NULL,
 show_name VARCHAR(100) NOT NULL,
-show_year VARCHAR(10) NOT NULL,
+years VARCHAR(15) NOT NULL,
 seasons INT NOT NULL,
-rating DECIMAL(2, 1) NOT NULL,
-id_genre INT NOT NULL,
-id_director INT NOT NULL,
 id_country INT NOT NULL,
-id_age_limit INT NOT NULL,
 PRIMARY KEY (id),
-CONSTRAINT shows_genre_fk FOREIGN KEY (id_genre) REFERENCES genre(id) ON UPDATE CASCADE,
-CONSTRAINT shows_director_fk FOREIGN KEY (id_director) REFERENCES directors(id) ON UPDATE CASCADE,
 CONSTRAINT shows_country_fk FOREIGN KEY (id_country) REFERENCES country(id) ON UPDATE CASCADE,
 CONSTRAINT shows_limit_fk FOREIGN KEY (id_age_limit) REFERENCES age_limit(id) ON UPDATE CASCADE
 );
@@ -68,7 +61,6 @@ CREATE TABLE users (
 id INT IDENTITY(1, 1) NOT NULL,
 user_name VARCHAR(100) NOT NULL,
 user_surname VARCHAR(100) NOT NULL,
-birthday DATE NOT NULL,
 gender VARCHAR(10) NOT NULL,
 id_sub INT NOT NULL,
 PRIMARY KEY (id),
@@ -88,7 +80,7 @@ id_genre INT NOT NULL,
 id_show INT NOT NULL,
 PRIMARY KEY (id_genre, id_show),
 CONSTRAINT genre_show_fk FOREIGN KEY (id_genre) REFERENCES genre(id) ON UPDATE CASCADE,
-CONSTRAINT genre_show_fk FOREIGN KEY (id_film) REFERENCES tv_shows(id) ON UPDATE CASCADE,
+CONSTRAINT genre_show_fk FOREIGN KEY (id_show) REFERENCES tv_shows(id) ON UPDATE CASCADE,
 );
 
 CREATE TABLE user_films (
@@ -142,7 +134,7 @@ INSERT INTO subscription (id, sub_name) VALUES (2, 'Медиум');
 INSERT INTO subscription (id, sub_name) VALUES (3, 'Премиум');
 
 INSERT INTO genre (id, genre_name) VALUES (1, 'Аниме');
-INSERT INTO genre (id, genre_name) VALUES (2, 'Бигорафия');
+INSERT INTO genre (id, genre_name) VALUES (2, 'Биография');
 INSERT INTO genre (id, genre_name) VALUES (3, 'Боевик');
 INSERT INTO genre (id, genre_name) VALUES (4, 'Вестерн');
 INSERT INTO genre (id, genre_name) VALUES (5, 'Военный');
@@ -152,7 +144,7 @@ INSERT INTO genre (id, genre_name) VALUES (8, 'Драма');
 INSERT INTO genre (id, genre_name) VALUES (9, 'Исторический');
 INSERT INTO genre (id, genre_name) VALUES (10, 'Комедия');
 INSERT INTO genre (id, genre_name) VALUES (11, 'Короткометражка');
-INSERT INTO genre (id, genre_name) VALUES (12, 'Крмиинал');
+INSERT INTO genre (id, genre_name) VALUES (12, 'Криминал');
 INSERT INTO genre (id, genre_name) VALUES (13, 'Мелодрама');
 INSERT INTO genre (id, genre_name) VALUES (14, 'Музыка');
 INSERT INTO genre (id, genre_name) VALUES (15, 'Мультфильм');
@@ -241,7 +233,7 @@ INSERT INTO directors (id, director_name, director_surname, gender) VALUES (13, 
 INSERT INTO directors (id, director_name, director_surname, gender) VALUES (14, 'Роман', 'Полански', 'мужской');
 INSERT INTO directors (id, director_name, director_surname, gender) VALUES (15, 'Никита', 'Михалков', 'мужской');
 INSERT INTO directors (id, director_name, director_surname, gender) VALUES (16, 'Алексей', 'Балабанов', 'мужской');
-INSERT INTO directors (id, director_name, director_surname, gender) VALUES (17, 'Фрэнсис', 'Коппола', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (17, 'Фрэнсис Форд', 'Коппола', 'мужской');
 INSERT INTO directors (id, director_name, director_surname, gender) VALUES (18, 'Стэнли', 'Кубрик', 'мужской');
 INSERT INTO directors (id, director_name, director_surname, gender) VALUES (19, 'Эльдар', 'Рязанов', 'мужской');
 INSERT INTO directors (id, director_name, director_surname, gender) VALUES (20, 'Леонид', 'Гайдай', 'мужской');
@@ -266,6 +258,10 @@ INSERT INTO directors (id, director_name, director_surname, gender) VALUES (38, 
 INSERT INTO directors (id, director_name, director_surname, gender) VALUES (39, 'Константин', 'Феоктистов', 'мужской');
 INSERT INTO directors (id, director_name, director_surname, gender) VALUES (40, 'Макото', 'Синкай', 'мужской');
 INSERT INTO directors (id, director_name, director_surname, gender) VALUES (41, 'Сатоси', 'Кон', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (42, 'Мартин', 'Скорсезе', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (43, 'Стивен', 'Спилберг', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (44, 'Люк', 'Бессон', 'мужской');
+INSERT INTO directors (id, director_name, director_surname, gender) VALUES (45, 'Андрей', 'Тарковский', 'мужской');
 
 INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (1, 'Мэрил', 'Стрип', 'женский');
 INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (2, 'Кэмерон', 'Диаз', 'женский');
@@ -328,7 +324,7 @@ INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (58, 'Лейт
 INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (59, 'Люси', 'Хейл', 'женский');
 INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (60, 'Кая', 'Скоделарио', 'женский');
 INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (61, 'Эллисон', 'Толман', 'женский');
-INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (62, 'Джениифер', 'Моррисон', 'женский');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (62, 'Дженнифер', 'Моррисон', 'женский');
 INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (63, 'Лана', 'Паррия', 'женский');
 INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (64, 'Тэри', 'Хэтчер', 'женский');
 INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (65, 'Бренда', 'Стронг', 'женский');
@@ -439,3 +435,365 @@ INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (169, 'Лор�
 INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (170, 'Дженсен', 'Эклс', 'мужской');
 INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (171, 'Том', 'Хиддлстон', 'мужской');
 INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (172, 'Иэн', 'Макшейн', 'мужской');
+INSERT INTO actors (id, actor_name, actor_surname, gender) VALUES (173, 'Джиннифер', 'Гудвин', 'женский');
+
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (1, 'Интерстеллар', 2014, 169, 8.7, 2, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (2, 'Крестный отец', 1972, 175, 9.2, 17, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (3, 'Крестный отец 2', 1974, 202, 9.0, 17, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (4, 'Славные парни', 1990, 145, 8.7, 42, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (5, 'Темный рыцарь', 2008, 152, 9.0, 2, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (6, 'Титаник', 1997, 194, 7.9, 5, 42, 3);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (7, 'Семь', 1995, 127, 8.6, 6, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (8, 'Остров проклятых', 2010, 138, 8.2, 42, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (9, 'Головокружение', 1958, 128, 8.3, 10, 42, 3);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (10, 'Психо', 1960, 180, 8.5, 10, 42, 5)
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (11, 'Криминальное чтиво', 1994, 154, 8.9, 1, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (12, 'Список Шиндлера', 1993, 195, 9.0, 43, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (13, 'Престиж', 2006, 130, 8.5, 2, 42, 3);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (14, 'Бойцовский клуб', 1999, 139, 8.8, 6, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (15, 'Волк с Уолл-стрит', 2013, 180, 8.2, 42, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (16, 'Сияние', 1980, 146, 8.4, 18, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (17, 'Леон', 1994, 133, 8.5, 44, 51, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (18, 'Сталкер', 1979, 163, 8.1, 45, 41, 3);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (19, 'Однажды в Голливуде', 2019, 161, 7.6, 1, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (20, 'Бешеные псы', 1992, 100, 8.5, 1, 42, 5)
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (21, 'Реквием по мечте', 2000, 102, 8.3, 31, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (22, 'Черный лебедь', 2010, 103, 8, 31, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (23, 'Гарри Поттер и философский камень', 2001, 152, 7.6, 32, 9, 3);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (24, 'Отступники', 2006, 151, 8.5, 42, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (25, 'Навсикая из долины ветров', 1984, 115, 8, 28, 57, 3);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (26, 'Сонная лощина', 1999, 105, 7.3, 7, 42, 5);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (27, 'Унесенные призраками', 2001, 125, 8.6, 28, 57, 3);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (28, 'Три богатыря: Ход конем', 2015, 74, 5.2, 39, 39, 2);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (29, 'Три богатыря и Конь на троне', 2021, 87, 5.6, 39, 39, 2);
+INSERT INTO films (id, film_name, film_year, duration, rating, id_director, id_country, id_age_limit) VALUES (30, 'Синий бархат', 1986, 120, 7.7, 4, 42, 5);
+
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (1, 'Сплетница', '2007-2012', 6, 42);
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (2, 'Однажды в сказке', '2011-2018', 7, 42);
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (3, 'Отчаянные домохозяйки', '2004-2012', 8, 42);
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (4, 'Касл', '2009-2016', 8, 42);
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (5, 'Большая маленькая ложь', '2017-2019', 2, 42);
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (6, 'Твин Пикс', '1990-2017', 3, 42);
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (7, 'Шерлок', '2010-2017', 4, 9);
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (8, 'Доктор Хаус', '2004-2012', 8, 42);
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (9, 'Обмани меня', '2009-2011', 3, 42);
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (10, 'Сверхъестественное', '2005-2020', 15, 42);
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (11, 'Почему женщины убивают', '2019-2021', 2, 42);
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (12, 'Ривердейл', '2017-2023', 7, 42);
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (13, 'Фарго', '2014-н.в.', 6, 42);
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (14, 'Локи', '2021-2023', 2, 42);
+INSERT INTO tv_shows (id, show_name, years, seasons, id_country) VALUES (15, 'Пацаны', '2019-н.в.', 4, 42);
+
+INSERT INTO users (id, user_name, user_surname, gender, id_sub) VALUES (1, 'Мария', 'Иванова', 'женский', 1);
+INSERT INTO users (id, user_name, user_surname, gender, id_sub) VALUES (2, 'Дарья', 'Корнеева', 'женский', 2);
+INSERT INTO users (id, user_name, user_surname, gender, id_sub) VALUES (3, 'Владимир', 'Дуров', 'мужской', 2);
+INSERT INTO users (id, user_name, user_surname, gender, id_sub) VALUES (4, 'Иван', 'Карпов', 'мужской', 3);
+INSERT INTO users (id, user_name, user_surname, gender, id_sub) VALUES (5, 'Даниил', 'Реданов', 'мужской', 3);
+INSERT INTO users (id, user_name, user_surname, gender, id_sub) VALUES (6, 'Софья', 'Липина', 'женский', 3);
+INSERT INTO users (id, user_name, user_surname, gender, id_sub) VALUES (7, 'Егор', 'Валов', 'мужской', 3);
+INSERT INTO users (id, user_name, user_surname, gender, id_sub) VALUES (8, 'Татьяна', 'Ланская', 'женский', 2);
+INSERT INTO users (id, user_name, user_surname, gender, id_sub) VALUES (9, 'Полина', 'Ерофеева', 'женский', 1);
+INSERT INTO users (id, user_name, user_surname, gender, id_sub) VALUES (10, 'Роман', 'Халов', 'мужской', 1);
+
+INSERT INTO user_films (id_user, id_film) VALUES (1, 2);
+INSERT INTO user_films (id_user, id_film) VALUES (2, 15);
+INSERT INTO user_films (id_user, id_film) VALUES (3, 7);
+INSERT INTO user_films (id_user, id_film) VALUES (4, 8);
+INSERT INTO user_films (id_user, id_film) VALUES (5, 3);
+INSERT INTO user_films (id_user, id_film) VALUES (6, 1);
+INSERT INTO user_films (id_user, id_film) VALUES (7, 4);
+INSERT INTO user_films (id_user, id_film) VALUES (8, 29);
+INSERT INTO user_films (id_user, id_film) VALUES (9, 23);
+INSERT INTO user_films (id_user, id_film) VALUES (10, 21);
+INSERT INTO user_films (id_user, id_film) VALUES (1, 12);
+INSERT INTO user_films (id_user, id_film) VALUES (2, 24);
+INSERT INTO user_films (id_user, id_film) VALUES (3, 25);
+INSERT INTO user_films (id_user, id_film) VALUES (4, 1);
+INSERT INTO user_films (id_user, id_film) VALUES (5, 2);
+INSERT INTO user_films (id_user, id_film) VALUES (6, 3);
+INSERT INTO user_films (id_user, id_film) VALUES (7, 4);
+INSERT INTO user_films (id_user, id_film) VALUES (8, 5);
+INSERT INTO user_films (id_user, id_film) VALUES (9, 5;
+INSERT INTO user_films (id_user, id_film) VALUES (10, 5);
+INSERT INTO user_films (id_user, id_film) VALUES (1, 30);
+INSERT INTO user_films (id_user, id_film) VALUES (2, 4;
+INSERT INTO user_films (id_user, id_film) VALUES (3, 11);
+INSERT INTO user_films (id_user, id_film) VALUES (4, 27);
+INSERT INTO user_films (id_user, id_film) VALUES (5, 13);
+INSERT INTO user_films (id_user, id_film) VALUES (4, 16);
+INSERT INTO user_films (id_user, id_film) VALUES (5, 22);
+INSERT INTO user_films (id_user, id_film) VALUES (2, 2);
+INSERT INTO user_films (id_user, id_film) VALUES (3, 19);
+INSERT INTO user_films (id_user, id_film) VALUES (1, 22);
+
+INSERT INTO user_shows (id_user, id_show) VALUES (1, 2);
+INSERT INTO user_shows (id_user, id_show) VALUES (2, 15);
+INSERT INTO user_shows (id_user, id_show) VALUES (3, 7);
+INSERT INTO user_shows (id_user, id_show) VALUES (4, 8);
+INSERT INTO user_shows (id_user, id_show) VALUES (5, 3);
+INSERT INTO user_shows (id_user, id_show) VALUES (6, 1);
+INSERT INTO user_shows (id_user, id_show) VALUES (2, 4);
+INSERT INTO user_shows (id_user, id_show) VALUES (5, 9);
+INSERT INTO user_shows (id_user, id_show) VALUES (9, 3);
+INSERT INTO user_shows (id_user, id_show) VALUES (10, 11);
+INSERT INTO user_shows (id_user, id_show) VALUES (1, 12);
+INSERT INTO user_shows (id_user, id_show) VALUES (2, 4);
+INSERT INTO user_shows (id_user, id_show) VALUES (3, 5);
+INSERT INTO user_shows (id_user, id_show) VALUES (4, 10);
+INSERT INTO user_shows (id_user, id_show) VALUES (5, 6);
+INSERT INTO user_shows (id_user, id_show) VALUES (6, 13);
+INSERT INTO user_shows (id_user, id_show) VALUES (6, 5);
+INSERT INTO user_shows (id_user, id_show) VALUES (9, 13);
+INSERT INTO user_shows (id_user, id_show) VALUES (9, 14);
+INSERT INTO user_shows (id_user, id_show) VALUES (10, 15);
+INSERT INTO user_shows (id_user, id_show) VALUES (1, 10);
+INSERT INTO user_shows (id_user, id_show) VALUES (2, 14);
+INSERT INTO user_shows (id_user, id_show) VALUES (3, 11);
+INSERT INTO user_shows (id_user, id_show) VALUES (4, 7);
+INSERT INTO user_shows (id_user, id_show) VALUES (10, 13);
+INSERT INTO user_shows (id_user, id_show) VALUES (4, 15);
+INSERT INTO user_shows (id_user, id_show) VALUES (5, 22);
+INSERT INTO user_shows (id_user, id_show) VALUES (2, 2);
+INSERT INTO user_shows (id_user, id_show) VALUES (3, 9);
+INSERT INTO user_shows (id_user, id_show) VALUES (1, 8);
+
+INSERT INTO cast_films (id_actor, id_film) VALUES (15, 1);
+INSERT INTO cast_films (id_actor, id_film) VALUES (125, 1);
+INSERT INTO cast_films (id_actor, id_film) VALUES (124, 1);
+INSERT INTO cast_films (id_actor, id_film) VALUES (92, 2);
+INSERT INTO cast_films (id_actor, id_film) VALUES (92, 3);
+INSERT INTO cast_films (id_actor, id_film) VALUES (128, 3);
+INSERT INTO cast_films (id_actor, id_film) VALUES (128, 4);
+INSERT INTO cast_films (id_actor, id_film) VALUES (119, 5);
+INSERT INTO cast_films (id_actor, id_film) VALUES (96, 5);
+INSERT INTO cast_films (id_actor, id_film) VALUES (15, 5);
+INSERT INTO cast_films (id_actor, id_film) VALUES (118, 5);
+INSERT INTO cast_films (id_actor, id_film) VALUES (120, 6);
+INSERT INTO cast_films (id_actor, id_film) VALUES (106, 7);
+INSERT INTO cast_films (id_actor, id_film) VALUES (116, 7);
+INSERT INTO cast_films (id_actor, id_film) VALUES (7, 7);
+INSERT INTO cast_films (id_actor, id_film) VALUES (120, 8);
+INSERT INTO cast_films (id_actor, id_film) VALUES (123, 8);
+INSERT INTO cast_films (id_actor, id_film) VALUES (101, 11);
+INSERT INTO cast_films (id_actor, id_film) VALUES (29, 11);
+INSERT INTO cast_films (id_actor, id_film) VALUES (108, 11);
+INSERT INTO cast_films (id_actor, id_film) VALUES (98, 11);
+INSERT INTO cast_films (id_actor, id_film) VALUES (163, 11);
+INSERT INTO cast_films (id_actor, id_film) VALUES (152, 11);
+INSERT INTO cast_films (id_actor, id_film) VALUES (121, 12);
+INSERT INTO cast_films (id_actor, id_film) VALUES (119, 13);
+INSERT INTO cast_films (id_actor, id_film) VALUES (8, 13);
+INSERT INTO cast_films (id_actor, id_film) VALUES (106, 14);
+INSERT INTO cast_films (id_actor, id_film) VALUES (110, 14);
+INSERT INTO cast_films (id_actor, id_film) VALUES (120, 15);
+INSERT INTO cast_films (id_actor, id_film) VALUES (34, 15);
+INSERT INTO cast_films (id_actor, id_film) VALUES (125, 15);
+INSERT INTO cast_films (id_actor, id_film) VALUES (91, 16);
+INSERT INTO cast_films (id_actor, id_film) VALUES (26, 17);
+INSERT INTO cast_films (id_actor, id_film) VALUES (96, 17);
+INSERT INTO cast_films (id_actor, id_film) VALUES (159, 18);
+INSERT INTO cast_films (id_actor, id_film) VALUES (43, 18);
+INSERT INTO cast_films (id_actor, id_film) VALUES (120, 19);
+INSERT INTO cast_films (id_actor, id_film) VALUES (106, 19);
+INSERT INTO cast_films (id_actor, id_film) VALUES (34, 19);
+INSERT INTO cast_films (id_actor, id_film) VALUES (163, 20);
+INSERT INTO cast_films (id_actor, id_film) VALUES (152, 20);
+INSERT INTO cast_films (id_actor, id_film) VALUES (110, 21);
+INSERT INTO cast_films (id_actor, id_film) VALUES (26, 22);
+INSERT INTO cast_films (id_actor, id_film) VALUES (22, 22);
+INSERT INTO cast_films (id_actor, id_film) VALUES (114, 23);
+INSERT INTO cast_films (id_actor, id_film) VALUES (12, 23);
+INSERT INTO cast_films (id_actor, id_film) VALUES (120, 24);
+INSERT INTO cast_films (id_actor, id_film) VALUES (124, 24);
+INSERT INTO cast_films (id_actor, id_film) VALUES (91, 24);
+INSERT INTO cast_films (id_actor, id_film) VALUES (97, 26);
+INSERT INTO cast_films (id_actor, id_film) VALUES (161, 30);
+INSERT INTO cast_films (id_actor, id_film) VALUES (79, 30);
+
+INSERT INTO cast_shows (id_actor, id_show) VALUES (38, 1);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (58, 1);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (167, 1);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (168, 1);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (173, 2);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (62, 2);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (63, 2);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (65, 3);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (64, 3);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (66, 3);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (164, 3);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (161, 3);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (164, 4);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (31, 4);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (1, 5);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (13, 5);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (78, 5);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (40, 5);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (79, 5);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (80, 5);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (140, 5);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (79, 6);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (161, 6);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (82, 6);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (104, 7);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (129, 7);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (148, 8);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (62, 8);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (42, 8);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (163, 9);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (170, 10);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (74, 10);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (63, 11);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (61, 11);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (173, 11);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (32, 11);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (144, 11);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (165, 12);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (166, 12);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (82, 12);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (61, 13);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (129, 13);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (16, 13);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (171, 14);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (170, 15);
+INSERT INTO cast_shows (id_actor, id_show) VALUES (167, 15);
+
+INSERT INTO genre_shows (id_genre, id_show) VALUES (8, 1);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (13, 1);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (24, 2);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (13, 2);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (17, 2);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (6, 3);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (8, 3);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (10, 3);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (13, 3);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (6, 4);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (8, 4);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (13, 4);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (10, 4);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (12, 4);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (8, 5);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (6, 5);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (12, 5);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (6, 6);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (25, 6);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (8, 6);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (12, 6);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (6, 7);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (20, 7);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (12, 7);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (10, 8);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (6, 8);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (8, 8);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (6, 9);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (12, 9);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (8, 9);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (8, 10);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (6, 10);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (17, 10);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (24, 10);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (21, 10);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (8, 11);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (12, 11);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (10, 11);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (8, 12);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (12, 12);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (13, 12);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (6, 12);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (8, 13);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (12, 13);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (6, 13);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (3, 14);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (17, 14);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (22, 14);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (24, 14);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (3, 15);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (8, 15);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (10, 15);
+INSERT INTO genre_shows (id_genre, id_show) VALUES (22, 15);
+
+INSERT INTO genre_films (id_genre, id_film) VALUES (8, 1);
+INSERT INTO genre_films (id_genre, id_film) VALUES (22, 1);
+INSERT INTO genre_films (id_genre, id_film) VALUES (17, 1);
+INSERT INTO genre_films (id_genre, id_film) VALUES (8, 2);
+INSERT INTO genre_films (id_genre, id_film) VALUES (12, 2);
+INSERT INTO genre_films (id_genre, id_film) VALUES (12, 3);
+INSERT INTO genre_films (id_genre, id_film) VALUES (8, 3);
+INSERT INTO genre_films (id_genre, id_film) VALUES (8, 4);
+INSERT INTO genre_films (id_genre, id_film) VALUES (12, 4);
+INSERT INTO genre_films (id_genre, id_film) VALUES (2, 4);
+INSERT INTO genre_films (id_genre, id_film) VALUES (3, 5);
+INSERT INTO genre_films (id_genre, id_film) VALUES (8, 5);
+INSERT INTO genre_films (id_genre, id_film) VALUES (22, 5);
+INSERT INTO genre_films (id_genre, id_film) VALUES (20, 5);
+INSERT INTO genre_films (id_genre, id_film) VALUES (12, 5);
+INSERT INTO genre_films (id_genre, id_film) VALUES (8, 6);
+INSERT INTO genre_films (id_genre, id_film) VALUES (9, 6);
+INSERT INTO genre_films (id_genre, id_film) VALUES (13, 6);
+INSERT INTO genre_films (id_genre, id_film) VALUES (12, 7);
+INSERT INTO genre_films (id_genre, id_film) VALUES (6, 7);
+INSERT INTO genre_films (id_genre, id_film) VALUES (20, 7);
+INSERT INTO genre_films (id_genre, id_film) VALUES (20, 8);
+INSERT INTO genre_films (id_genre, id_film) VALUES (6, 8);
+INSERT INTO genre_films (id_genre, id_film) VALUES (25, 8);
+INSERT INTO genre_films (id_genre, id_film) VALUES (20, 9);
+INSERT INTO genre_films (id_genre, id_film) VALUES (21, 9);
+INSERT INTO genre_films (id_genre, id_film) VALUES (20, 10);
+INSERT INTO genre_films (id_genre, id_film) VALUES (21, 10);
+INSERT INTO genre_films (id_genre, id_film) VALUES (10, 11);
+INSERT INTO genre_films (id_genre, id_film) VALUES (12, 11);
+INSERT INTO genre_films (id_genre, id_film) VALUES (2, 12);
+INSERT INTO genre_films (id_genre, id_film) VALUES (9, 12);
+INSERT INTO genre_films (id_genre, id_film) VALUES (8, 12);
+INSERT INTO genre_films (id_genre, id_film) VALUES (8, 13);
+INSERT INTO genre_films (id_genre, id_film) VALUES (20, 13);
+INSERT INTO genre_films (id_genre, id_film) VALUES (6, 13);
+INSERT INTO genre_films (id_genre, id_film) VALUES (22, 13);
+INSERT INTO genre_films (id_genre, id_film) VALUES (8, 14);
+INSERT INTO genre_films (id_genre, id_film) VALUES (12, 14);
+INSERT INTO genre_films (id_genre, id_film) VALUES (20, 14);
+INSERT INTO genre_films (id_genre, id_film) VALUES (10, 15);
+INSERT INTO genre_films (id_genre, id_film) VALUES (8, 15);
+INSERT INTO genre_films (id_genre, id_film) VALUES (2, 15);
+INSERT INTO genre_films (id_genre, id_film) VALUES (20, 16);
+INSERT INTO genre_films (id_genre, id_film) VALUES (21, 16);
+INSERT INTO genre_films (id_genre, id_film) VALUES (12, 17);
+INSERT INTO genre_films (id_genre, id_film) VALUES (3, 17);
+INSERT INTO genre_films (id_genre, id_film) VALUES (8, 17);
+INSERT INTO genre_films (id_genre, id_film) VALUES (17, 18);
+INSERT INTO genre_films (id_genre, id_film) VALUES (8, 18);
+INSERT INTO genre_films (id_genre, id_film) VALUES (22, 18);
+INSERT INTO genre_films (id_genre, id_film) VALUES (25, 18);
+INSERT INTO genre_films (id_genre, id_film) VALUES (8, 19);
+INSERT INTO genre_films (id_genre, id_film) VALUES (9, 19);
+INSERT INTO genre_films (id_genre, id_film) VALUES (10, 19);
+INSERT INTO genre_films (id_genre, id_film) VALUES (12, 20);
+INSERT INTO genre_films (id_genre, id_film) VALUES (20, 20);
+INSERT INTO genre_films (id_genre, id_film) VALUES (8, 21);
+INSERT INTO genre_films (id_genre, id_film) VALUES (20, 21);
+INSERT INTO genre_films (id_genre, id_film) VALUES (20, 22);
+INSERT INTO genre_films (id_genre, id_film) VALUES (8, 22);
+INSERT INTO genre_films (id_genre, id_film) VALUES (18, 23);
+INSERT INTO genre_films (id_genre, id_film) VALUES (24, 23);
+INSERT INTO genre_films (id_genre, id_film) VALUES (17, 23);
+INSERT INTO genre_films (id_genre, id_film) VALUES (12, 24);
+INSERT INTO genre_films (id_genre, id_film) VALUES (8, 24);
+INSERT INTO genre_films (id_genre, id_film) VALUES (20, 24);
+INSERT INTO genre_films (id_genre, id_film) VALUES (1, 25);
+INSERT INTO genre_films (id_genre, id_film) VALUES (24, 25);
+INSERT INTO genre_films (id_genre, id_film) VALUES (20, 26);
+INSERT INTO genre_films (id_genre, id_film) VALUES (24, 26);
+INSERT INTO genre_films (id_genre, id_film) VALUES (6, 26);
+INSERT INTO genre_films (id_genre, id_film) VALUES (21, 26);
+INSERT INTO genre_films (id_genre, id_film) VALUES (1, 27);
+INSERT INTO genre_films (id_genre, id_film) VALUES (24, 27);
+INSERT INTO genre_films (id_genre, id_film) VALUES (18, 27);
+INSERT INTO genre_films (id_genre, id_film) VALUES (15, 28);
+INSERT INTO genre_films (id_genre, id_film) VALUES (18, 28);
+INSERT INTO genre_films (id_genre, id_film) VALUES (10, 28);
+INSERT INTO genre_films (id_genre, id_film) VALUES (15, 29);
+INSERT INTO genre_films (id_genre, id_film) VALUES (18, 29);
+INSERT INTO genre_films (id_genre, id_film) VALUES (10, 29);
+INSERT INTO genre_films (id_genre, id_film) VALUES (12, 30);
+INSERT INTO genre_films (id_genre, id_film) VALUES (20, 30);
+INSERT INTO genre_films (id_genre, id_film) VALUES (8, 30);
+INSERT INTO genre_films (id_genre, id_film) VALUES (6, 30);
