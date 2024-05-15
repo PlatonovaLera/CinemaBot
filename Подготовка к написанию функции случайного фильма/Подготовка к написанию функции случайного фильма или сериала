@@ -4,7 +4,7 @@ import random
 line_count = sum(1 for line in open(r'C:\Users\Даша\Desktop\2 курс\pythonProject\бд csv.csv')) - 1 #считываем кол-во строк в бд
 print(line_count)
 
-rand_num_of_film = random.randint(1, line_count)
+rand_num_of_film = random.randint(1, line_count + 1)
 print(rand_num_of_film)
 
 with open(r'C:\Users\Даша\Desktop\2 курс\pythonProject\бд csv.csv', newline='') as csvfile:
