@@ -1,0 +1,6 @@
+import csv
+
+with open(r'C:\Users\Даша\Desktop\2 курс\pythonProject\бд csv.csv', newline= '') as csvfile:
+    reader = csv.DictReader(csvfile, delimiter=";")
+    for row in reader:
+        print(row['id'], '|', row['name'])
