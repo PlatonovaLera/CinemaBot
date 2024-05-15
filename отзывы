@@ -1,23 +1,39 @@
 import telebot
 from telebot import types
+from telegram.ext import Updater, CommandHandler, CallbackQueryHandler, MessageHandler, Filters, CallbackContext
 import sqlite3
 bot = telebot.TeleBot('6969036206:AAFrWpg8FYYCxUr8rTtOq_YmzajlM4n6WJU')
 
-#@bot.message_handler(commands=['start'])
-#def start(message):
-  #  conn = sqlite3.connect('feedback.db')
-   # cursor = conn.cursor()
-    #cursor.execute('CREATE TABLE IF NOT EXISTS feedback (user_id int auto_ibcrement primary key, name varchar(50), feedback_text TEXT)')
-    #conn.commit()
+@bot.message_handler(commands=['start'])
+def start(message):
+    conn = sqlite3.connect('feedback.db')
+    cursor = conn.cursor()
+    cursor.execute('CREATE TABLE IF NOT EXISTS feedback (user_id int auto_ibcrement primary key, name varchar(50), feedback_text TEXT)')
+    conn.commit()
 
 
-@bot.message_handler(commands=['battons'])
+@bot.message_handler(commands=['batton'])
 def battons(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1) #row_width - сколько кнопок в ряду почему-то не работает
     feedbacks = types.KeyboardButton('Оставить отзыв')
     markup.add(feedbacks)
-    bot.send_message(message.chat.id, f'Оставьте пожалуста отзыв=)', reply_markup=markup)
+    bot.send_message(message.chat.id, f'Оставьте, пожалуста, отзыв=)', reply_markup=markup)
+# Функция для сохранения отзыва в базе данных
+def save_review(update: Update, context: CallbackContext):
+    user_id = update.effective_user.id
+    review_text = update.message.text
+    cursor.execute("INSERT INTO reviews (user_id, review_text) VALUES (?, ?)", (user_id, review_text))
+    conn.commit()
+    update.message.reply_text('Спасибо за ваш отзыв!')
 
+# Подключение обработчиков команд
+updater = Updater("TOKEN", use_context=True)
+dispatcher = updater.dispatcher
+dispatcher.add_handler(CommandHandler('start', start))
+dispatcher.add_handler(CallbackQueryHandler(buttons))
+dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, save_review))
+
+updater.start_polling()
+updater.idle()
 bot.polling(non_stop=True)
-
 
