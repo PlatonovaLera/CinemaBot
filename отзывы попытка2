@@ -1,0 +1,28 @@
+"""
+from telegram import Update
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
+
+# Функция для команды /start
+def start(update: Update, context: CallbackContext) -> None:
+    update.message.reply_text('Привет! Для того чтобы оставить отзыв, напишите его в чат.')
+
+# Функция для обработки отзывов
+def feedback(update: Update, context: CallbackContext) -> None:
+    user_feedback = update.message.text
+    update.message.reply_text('Спасибо за ваш отзыв!')
+
+# Создаем и настраиваем бота
+def main() -> None:
+    token = 'YOUR_BOT_TOKEN'
+    updater = Updater(token)
+
+    dispatcher = updater.dispatcher
+    dispatcher.add_handler(CommandHandler('start', start))
+    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, feedback))
+
+    updater.start_polling()
+    updater.idle()
+
+if __name__ == '__main__':
+    main()
+    """

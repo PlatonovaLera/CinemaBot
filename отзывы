@@ -22,12 +22,12 @@ def battons(message):
 def save_review(update: Update, context: CallbackContext):
     user_id = update.effective_user.id
     review_text = update.message.text
-    cursor.execute("INSERT INTO reviews (user_id, review_text) VALUES (?, ?)", (user_id, review_text))
+    cursor.execute("INSERT INTO reviews (user_id, review_text) VALUES", (user_id, review_text))
     conn.commit()
     update.message.reply_text('Спасибо за ваш отзыв!')
 
 # Подключение обработчиков команд
-updater = Updater("TOKEN", use_context=True)
+updater = Updater("6969036206:AAFrWpg8FYYCxUr8rTtOq_YmzajlM4n6WJU", use_context=True)
 dispatcher = updater.dispatcher
 dispatcher.add_handler(CommandHandler('start', start))
 dispatcher.add_handler(CallbackQueryHandler(buttons))
