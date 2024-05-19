@@ -1,4 +1,4 @@
-def on_click1(message):
+def on_click2(message):
     if message.text == 'Сгенерировать подборку фильмов':
         markup_inline = types.InlineKeyboardMarkup()
         btn1 = types.InlineKeyboardButton('Хорошее', callback_data='1')

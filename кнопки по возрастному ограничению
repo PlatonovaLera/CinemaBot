@@ -1,4 +1,9 @@
-def on_click1(message):
+"""
+from turtle import dot
+import types
+
+
+def on_click3(message):
     if message.text == 'Сгенерировать подборку фильмов':
         markup_inline = types.InlineKeyboardMarkup()
         btn1 = types.InlineKeyboardButton('0+', callback_data='1')
@@ -10,3 +15,4 @@ def on_click1(message):
         markup_inline.add(btn1,btn2,btn3,btn4,btn5)
         bot.reply_to(message, 'Возрастное ограничение для фильма', reply_markup=markup_inline)
         bot.register_next_step_handler(message, answer)
+"""
