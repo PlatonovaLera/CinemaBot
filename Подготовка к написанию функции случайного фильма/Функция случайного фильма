@@ -1,0 +1,17 @@
+line_count = sum(1 for line in open(r'C:\Users\Даша\Desktop\2 курс\pythonProject\films бд.csv', encoding='cp1251')) - 1 #считываем кол-во строк в бд
+#print(line_count)
+
+def rand_film_name():
+    rand_num_of_film = random.randint(1, line_count)
+    with open(r'C:\Users\Даша\Desktop\2 курс\pythonProject\films бд.csv', newline='', encoding='cp1251') as csvfile:
+        reader = csv.reader(csvfile, delimiter=';')
+        next(reader) # пропуск заголовка
+        for _ in range(rand_num_of_film):
+            row = next(reader)  # читаем следующую строку
+        return row[1]  # возвращаем значение второго столбца
+
+def on_click_random_film(message):
+
+    random_film = rand_film_name()  # Замените это на реальное название случайного фильма
+
+    bot.send_message(message.chat.id, f"Вот ваш случайный фильм: {random_film}")

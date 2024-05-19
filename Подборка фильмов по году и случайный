@@ -1,0 +1,111 @@
+import telebot
+from telebot import types
+import csv
+import random
+
+# Считываем количество строк в CSV-файле, за исключением заголовка
+line_count = sum(1 for line in open(r'C:\Users\Даша\Desktop\2 курс\pythonProject\films бд.csv', encoding='cp1251')) - 1
+
+# Функция для выбора случайного фильма
+def rand_film_name():
+    rand_num_of_film = random.randint(1, line_count)
+    with open(r'C:\Users\Даша\Desktop\2 курс\pythonProject\films бд.csv', newline='', encoding='cp1251') as csvfile:
+        reader = csv.reader(csvfile, delimiter=';')
+        next(reader)  # Пропуск заголовка
+        for _ in range(rand_num_of_film):
+            row = next(reader)  # Читаем следующую строку
+        return row[1]  # Возвращаем значение второго столбца
+
+bot = telebot.TeleBot('6969036206:AAFrWpg8FYYCxUr8rTtOq_YmzajlM4n6WJU')
+
+@bot.message_handler(commands=['start'])
+def start(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn1 = types.KeyboardButton('Подборка фильмов')
+    btn2 = types.KeyboardButton('Подборка сериалов')
+    btn3 = types.KeyboardButton('Случайный фильм')
+    btn4 = types.KeyboardButton('Случайный сериал')
+    markup.row(btn1, btn2)
+    markup.row(btn3, btn4)
+    bot.send_message(message.chat.id, f'Привет, {message.from_user.username}! Выбери, что ты хочешь сделать 👇🏻', reply_markup=markup)
+    bot.register_next_step_handler(message, on_click)
+
+def on_click(message):
+    if message.text == 'Подборка фильмов':
+        filter_choice(message)
+    elif message.text == 'Подборка сериалов':
+        bot.send_message(message.chat.id, 'Вы выбрали подборку сериалов')
+    elif message.text == 'Случайный фильм':
+        random_film = rand_film_name()
+        bot.send_message(message.chat.id, f"Вот ваш случайный фильм: {random_film}")
+    elif message.text == 'Случайный сериал':
+        bot.send_message(message.chat.id, 'Вы выбрали случайный сериал')
+
+def filter_choice(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn1 = types.KeyboardButton('Год')
+    btn2 = types.KeyboardButton('Возрастное ограничение')
+    btn3 = types.KeyboardButton('Жанр')
+    btn4 = types.KeyboardButton('Режиссер')
+    btn5 = types.KeyboardButton('Страна')
+    btn6 = types.KeyboardButton('Длительность')
+    btn7 = types.KeyboardButton('Рейтинг')
+    btn8 = types.KeyboardButton('Настроение')
+    markup.row(btn1, btn2)
+    markup.row(btn3, btn4)
+    markup.row(btn5, btn6)
+    markup.row(btn7, btn8)
+    bot.send_message(message.chat.id, 'Выбери критерий, который важен тебе при выборе фильма 👇🏻', reply_markup=markup)
+    bot.register_next_step_handler(message, on_click_filter_year)
+
+def on_click_filter_year(message):
+    if message.text == 'Год':
+        markup_inline = types.InlineKeyboardMarkup()
+        btn1 = types.InlineKeyboardButton('до 1950', callback_data='1')
+        btn2 = types.InlineKeyboardButton('1950 - 1969', callback_data='2')
+        btn3 = types.InlineKeyboardButton('1970 - 1979', callback_data='3')
+        btn4 = types.InlineKeyboardButton('1980 - 1989', callback_data='4')
+        btn5 = types.InlineKeyboardButton('1990 - 1999', callback_data='5')
+        btn6 = types.InlineKeyboardButton('2000 - 2004', callback_data='6')
+        btn7 = types.InlineKeyboardButton('2005 - 2009', callback_data='7')
+        btn8 = types.InlineKeyboardButton('2010 - 2014', callback_data='8')
+        btn9 = types.InlineKeyboardButton('2015 - 2019', callback_data='9')
+        btn10 = types.InlineKeyboardButton('2020 - 2024', callback_data='10')
+        markup_inline.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10)
+        bot.reply_to(message, 'Какого года фильм ты хочешь посмотреть?', reply_markup=markup_inline)
+
+@bot.callback_query_handler(func=lambda call: call.data in [str(i) for i in range(1, 11)])
+def on_click_year(call):
+    year_ranges = {
+        '1': (0, 1949),
+        '2': (1950, 1969),
+        '3': (1970, 1979),
+        '4': (1980, 1989),
+        '5': (1990, 1999),
+        '6': (2000, 2004),
+        '7': (2005, 2009),
+        '8': (2010, 2014),
+        '9': (2015, 2019),
+        '10': (2020, 2024),
+    }
+    year1, year2 = year_ranges[call.data]
+    films = film_year(year1, year2)
+    if films:
+        bot.send_message(call.message.chat.id, "Вот фильмы за выбранный период:\n" + "\n".join(films))
+    else:
+        bot.send_message(call.message.chat.id, "Фильмов за выбранный период не найдено.")
+
+def film_year(year1, year2):
+    films = []
+    with open(r'C:\Users\Даша\Desktop\2 курс\pythonProject\films бд.csv', newline='', encoding='cp1251') as csvfile:
+        reader = csv.DictReader(csvfile, delimiter=';')
+        for row in reader:
+            try:
+                year = int(row['film_year'])  # Предполагается, что год находится в столбце 'film_year'
+                if year1 <= year <= year2:
+                    films.append(row['film_name'])  # Предполагается, что название фильма находится в столбце 'film_name'
+            except ValueError:
+                continue
+    return films
+
+bot.polling(none_stop=True)
