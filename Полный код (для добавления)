@@ -84,6 +84,19 @@ def on_click_filter(message):
         btn4 = types.InlineKeyboardButton('больше 2ч', callback_data='duration_4')
         markup_inline.add(btn1, btn2, btn3, btn4)
         bot.send_message(message.chat.id, 'Какой длительности фильм ты хочешь посмотреть?', reply_markup=markup_inline)
+    elif message.text == 'Страна':
+        markup_inline = types.InlineKeyboardMarkup()
+        btn1 = types.InlineKeyboardButton('Россия', callback_data='country_Россия')
+        btn2 = types.InlineKeyboardButton('США', callback_data='country_США')
+        btn3 = types.InlineKeyboardButton('Великобритания', callback_data='country_Великобритания')
+        btn4 = types.InlineKeyboardButton('СССР', callback_data='country_СССР')
+        btn5 = types.InlineKeyboardButton('Франция', callback_data='country_Франция')
+        btn6 = types.InlineKeyboardButton('Германия', callback_data='country_Германия')
+        btn7 = types.InlineKeyboardButton('Южная Корея', callback_data='country_Южная Корея')
+        btn8 = types.InlineKeyboardButton('Дания', callback_data='country_Дания')
+        btn9 = types.InlineKeyboardButton('Испания', callback_data='country_Испания')
+        markup_inline.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9)
+        bot.send_message(message.chat.id, 'Какой страны фильм ты хочешь посмотреть?', reply_markup=markup_inline)
     else:
         bot.send_message(message.chat.id, 'Пожалуйста, выберите один из предложенных критериев.')
         filter_choice(message)
@@ -148,6 +161,32 @@ def film_duration(dur1, dur2):
                     films.append(row['film_name'])
             except ValueError:
                 continue
+    return films
+
+@bot.callback_query_handler(func=lambda call: call.data.startswith('country_'))
+def on_click_country(call):
+    country = call.data.split('_')[1]
+    films = film_country(country)
+    if films:
+        bot.send_message(call.message.chat.id, "Вот фильмы с выбранной страной:\n" + "\n".join(films))
+    else:
+        bot.send_message(call.message.chat.id, "Фильмов с выбранной страной не найдено.")
+
+def film_country(country):
+    country_id = None
+    films = []
+    with open(r'C:\Users\Даша\Desktop\2 курс\pythonProject\films_country бд.csv', newline='', encoding='cp1251') as csvfile:
+        reader = csv.DictReader(csvfile, delimiter=';')
+        for row in reader:
+            if row['country_name'] == country:
+                country_id = int(row['id'])
+                break
+    if country_id is not None:
+        with open(r'C:\Users\Даша\Desktop\2 курс\pythonProject\films бд.csv', newline='', encoding='cp1251') as films_file:
+            films_reader = csv.DictReader(films_file, delimiter=';')
+            for film_row in films_reader:
+                if int(film_row['id_country']) == country_id:
+                    films.append(film_row['film_name'])
     return films
 
 bot.polling(none_stop=True)
