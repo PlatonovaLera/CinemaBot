@@ -1,0 +1,27 @@
+@bot.callback_query_handler(func=lambda call: call.data.startswith('limit_'))
+def on_click_limit(call):
+    limit_ranges = {
+        'limit_1': (0, 59),
+        'limit_2': (60, 89),
+        'limit_3': (90, 119),
+        'limit_4': (120, 500),
+    }
+    lim1, lim2 = limit_ranges[call.data]
+    films = film_limit(lim1, lim2)
+    if films:
+        bot.send_message(call.message.chat.id, "Вот фильмы с выбранным возрастным ограничением:\n" + "\n".join(films))
+    else:
+        bot.send_message(call.message.chat.id, "Фильмов с выбранным возрастным ограничением не найдено.")
+
+def film_limit(lim1, lim2):
+    films = []
+    with open(r'C:\Users\Даша\Desktop\2 курс\pythonProject\films бд.csv', newline='', encoding='cp1251') as csvfile:
+        reader = csv.DictReader(csvfile, delimiter=';')
+        for row in reader:
+            try:
+                limit = int(row['age_limit'])
+                if lim1 <= duration <= lim2:
+                    films.append(row['film_name'])
+            except ValueError:
+                continue
+    return films
