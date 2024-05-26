@@ -1,0 +1,24 @@
+def on_click_director(message):
+    director = message.text
+    films = film_director(director)
+    if films:
+        bot.send_message(message.chat.id, "Вот фильмы, снятые этим режиссером:\n" + "\n".join(films))
+    else:
+        bot.send_message(message.chat.id, "Фильмов, снятых режиссером с такой фамилией, не найдено.")
+
+def film_director(director):
+    director_id = None
+    films = []
+    with open(r'C:\Users\Даша\Desktop\2 курс\pythonProject\director бд.csv', newline='', encoding='cp1251') as csvfile:
+        reader = csv.DictReader(csvfile, delimiter=';')
+        for row in reader:
+            if row['director_surname'].lower() == director.lower():
+                director_id = int(row['id'])
+                break
+    if director_id is not None:
+        with open(r'C:\Users\Даша\Desktop\2 курс\pythonProject\films бд.csv', newline='', encoding='cp1251') as films_file:
+            films_reader = csv.DictReader(films_file, delimiter=';')
+            for films_row in films_reader:
+                if int(films_row['id_director']) == director_id:
+                    films.append(films_row['film_name'])
+    return films
