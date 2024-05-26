@@ -1,0 +1,48 @@
+import telebot
+from telebot import types
+import csv
+
+def on_click4(message):
+    if message.text == 'Рейтинг':
+        markup_inline = types.InlineKeyboardMarkup()
+        btn1 = types.InlineKeyboardButton('ниже 3.0', callback_data='3')
+        btn2 = types.InlineKeyboardButton('3.0 - 4.9', callback_data='4')
+        btn3 = types.InlineKeyboardButton('5.0 - 6.9', callback_data='5')
+        btn4 = types.InlineKeyboardButton('7.0 - 7.9', callback_data='6')
+        btn5 = types.InlineKeyboardButton('8.0 - 8.9', callback_data='7')
+        btn6 = types.InlineKeyboardButton('9.0 - 10.0', callback_data='8')
+        markup_inline.add(btn1, btn2, btn3, btn4, btn5, btn6)
+        markup.row(btn1, btn2)
+        markup.row(btn3, btn4)
+        markup.row(btn5, btn6)
+        bot.reply_to(message, 'Какой рейтинг долже быть у фильма?', reply_markup=markup_inline)
+        bot.register_next_step_handler(message, answer)
+    else:
+        bot.send_message(message.chat.id, 'Пожалуйста, выберите один из предложенных критериев.')
+        filter_choice(message)
+
+@bot.callback_query_handler(func=lambda call: call.data.startswith('rating_'))
+def on_click_rating(call):
+    rating = call.data.split('_')[1]
+    films = film_rating(rating)
+    if films:
+        bot.send_message(call.message.chat.id, "Вот фильмы с выбранным рейтингом:\n" + "\n".join(films))
+    else:
+        bot.send_message(call.message.chat.id, "Фильмов с выбранным рейтингом не найдено.")
+
+def film_rating(rating):
+    rating_id = None
+    films = []
+    with open(r'C:\Users\Даша\Desktop\2 курс\pythonProject\films_age_limit бд.csv', newline='', encoding='cp1251') as csvfile:
+        reader = csv.DictReader(csvfile, delimiter=';')
+        for row in reader:
+            if row['limit'] == rating:
+                rating_id = int(row['id'])
+                break
+    if rating_id is not None:
+        with open(r'C:\Users\Даша\Desktop\2 курс\pythonProject\films бд.csv', newline='', encoding='cp1251') as films_file:
+            films_reader = csv.DictReader(films_file, delimiter=';')
+            for film_row in films_reader:
+                if int(film_row['id_rating']) == rating_id:
+                    films.append(film_row['film_name'])
+    return films
