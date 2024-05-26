@@ -1,0 +1,42 @@
+import csv
+
+look_for = set(['199.199.1.1', '144.122.1.1', '22.22.36.22'])
+
+with open('data.csv','rb') as inf, open('wye_data.csv','wb') as outf:
+    incsv = csv.reader(inf, delimiter=',')
+    outcsv = csv.writer(outf, delimiter=',')
+    outcsv.writerows(row for row in incsv if row[3] in look_for)
+
+import csv
+from collections import Counter
+
+with open("data.csv", "r") as f_in:
+    reader = csv.DictReader(f_in, delimiter=";")
+    data = list(reader)
+
+# extract all movie titles with the actor first name = Richard , made before year 1985 , and award = No
+
+for d in data:
+    if (
+        d["Actor"].split(", ")[-1] == "Richard"
+        and int(d["Year"]) < 1985
+        and d["Awards"] == "No"
+    ):
+        print(d)
+
+filter = {}
+lines = open('test.csv', 'r').readlines()
+columns = lines[0].strip().split(';')
+
+lines.pop(0)
+
+for i in lines:
+    x = i.strip().split(';')
+    # Checking if the movie was made before 1985
+    if int(x[columns.index('Year')]) < 1985:
+        # Checking if the actor's first name is Richard
+        if x[columns.index('Actor')].split(', ')[1] == 'Richard':
+            # Checking if awards == Yes
+            if x[columns.index('Awards')] == 'Yes':
+                # Printing out the title of the movie
+                print(x[columns.index('Title')])
