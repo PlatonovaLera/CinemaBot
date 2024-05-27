@@ -100,6 +100,25 @@ def on_click_filter(message):
     elif message.text == 'Режиссер':
         bot.send_message(message.chat.id, 'Введи фамилию режиссера, фильм которого хотел(-а) бы посмотреть')
         bot.register_next_step_handler(message, on_click_director)
+    elif message.text == 'Возрастное ограничение':
+        markup_inline = types.InlineKeyboardMarkup()
+        btn1 = types.InlineKeyboardButton('0+', callback_data='limit_0+')
+        btn2 = types.InlineKeyboardButton('6+', callback_data='limit_6+')
+        btn3 = types.InlineKeyboardButton('12+', callback_data='limit_12+')
+        btn4 = types.InlineKeyboardButton('16+', callback_data='limit_16+')
+        btn5 = types.InlineKeyboardButton('18+', callback_data='limit_18+')
+        markup_inline.add(btn1, btn2, btn3, btn4, btn5)
+        bot.send_message(message.chat.id, 'Фильм с каким возрастным ограничением ты хочешь посмотреть?', reply_markup=markup_inline)
+    elif message.text == 'Рейтинг':
+        markup_inline = types.InlineKeyboardMarkup()
+        btn1 = types.InlineKeyboardButton('ниже 3.0', callback_data='rating_1')
+        btn2 = types.InlineKeyboardButton('3.0 - 4.9', callback_data='rating_2')
+        btn3 = types.InlineKeyboardButton('5.0 - 6.9', callback_data='rating_3')
+        btn4 = types.InlineKeyboardButton('7.0 - 7.9', callback_data='rating_4')
+        btn5 = types.InlineKeyboardButton('8.0 - 8.9', callback_data='rating_5')
+        btn6 = types.InlineKeyboardButton('9.0 - 10.0', callback_data='rating_6')
+        markup_inline.add(btn1, btn2, btn3, btn4, btn5, btn6)
+        bot.reply_to(message, 'Какой рейтинг должен быть у фильма?', reply_markup=markup_inline)
     else:
         bot.send_message(message.chat.id, 'Пожалуйста, выберите один из предложенных критериев.')
         filter_choice(message)
@@ -215,6 +234,62 @@ def film_director(director):
             for films_row in films_reader:
                 if int(films_row['id_director']) == director_id:
                     films.append(films_row['film_name'])
+    return films
+
+@bot.callback_query_handler(func=lambda call: call.data.startswith('limit_'))
+def on_click_age_limit(call):
+    age_limit = call.data.split('_')[1]
+    films = film_age_limit(age_limit)
+    if films:
+        bot.send_message(call.message.chat.id, "Вот фильмы с выбранным возрастным ограничением:\n" + "\n".join(films))
+    else:
+        bot.send_message(call.message.chat.id, "Фильмов с выбранным возратным ограничением не найдено.")
+
+def film_age_limit(age_limit):
+    age_limit_id = None
+    films = []
+    with open(r'C:\Users\Даша\Desktop\2 курс\pythonProject\age_limit бд.csv', newline='', encoding='cp1251') as csvfile:
+        reader = csv.DictReader(csvfile, delimiter=';')
+        for row in reader:
+            if row['limit'] == age_limit:
+                age_limit_id = int(row['id'])
+                break
+    if age_limit_id is not None:
+        with open(r'C:\Users\Даша\Desktop\2 курс\pythonProject\films бд.csv', newline='', encoding='cp1251') as films_file:
+            films_reader = csv.DictReader(films_file, delimiter=';')
+            for film_row in films_reader:
+                if int(film_row['id_age_limit']) == age_limit_id:
+                    films.append(film_row['film_name'])
+    return films
+
+@bot.callback_query_handler(func=lambda call: call.data.startswith('rating_'))
+def on_click_rating(call):
+    rating_ranges = {
+        'rating_1': (0, 2.9),
+        'rating_2': (3.0, 4.9),
+        'rating_3': (5.0, 6.9),
+        'rating_4': (7.0, 7.9),
+        'rating_5': (8.0, 8.9),
+        'rating_6': (9.0, 10.0),
+    }
+    rating1, rating2 = rating_ranges[call.data]
+    films = film_rating(rating1, rating2)
+    if films:
+        bot.send_message(call.message.chat.id, "Вот фильмы с выбранным рейтингом:\n" + "\n".join(films))
+    else:
+        bot.send_message(call.message.chat.id, "Фильмов с выбранным рейтингом не найдено.")
+
+def film_rating(rating1, rating2):
+    films = []
+    with open(r'C:\Users\Даша\Desktop\2 курс\pythonProject\films бд.csv', newline='', encoding='cp1251') as csvfile:
+        reader = csv.DictReader(csvfile, delimiter=';')
+        for row in reader:
+            try:
+                rating = int(row['rating'])
+                if rating1 <= rating <= rating2:
+                    films.append(row['film_name'])
+            except ValueError:
+                continue
     return films
 
 bot.polling(none_stop=True)
