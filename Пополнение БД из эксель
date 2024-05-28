@@ -1,0 +1,8 @@
+import pandas as pd
+# здесь можно добавлять фильмы в БД с помощью таблицы в Excel, где есть заголовки, как и в csv файле,и в каждой отдельной ячейки таблицы написано значение
+
+# сюда вставляется путь до нужного csv файла (можно прям до листа)
+df = pd.read_excel('C:\\Users\\User\\Downloads\\Книга4.xlsx')
+
+# сюда вставляет путь на талицу эксель, которая заполнена новыми фильмами
+df.to_csv('C:\\Users\\User\\Downloads\\netflix_titles_nov_2019.csv~\\netflix_titles_nov_2019.csv', mode ='a', header=False, index=False)
